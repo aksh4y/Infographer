@@ -1,0 +1,87 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new" class="navbar-link">
+                      <span class="glyphicon glyphicon-plus">
+                      </span>
+                </a>
+            </div>
+            <div class="navbar-text pull-left">
+                <a href="#/user/{{model.userId}}/website" class="navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    Pages
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-xs-6 as-list-header">
+                    Name
+                    <a>
+                        <span class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </div>
+                <div class="col-xs-3 hidden-xs as-list-header">
+                    Last Updated
+                    <a>
+                        <span class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </div>
+                <div class="col-xs-2 hidden-xs as-list-header">
+                    Description
+                    <a>
+                        <span class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-sm-1">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new" class="pull-right">
+                        <span class="glyphicon glyphicon-plus as-list-header"></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li ng-repeat="page in model.pages" class="list-group-item">
+            <div class="row">
+                <div class="col-xs-6">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">
+                        {{page.name}}
+                    </a>
+                </div>
+                <div class="col-xs-3 hidden-xs">
+                    {{page.created | date}}
+                </div>
+                <div class="col-xs-2 hidden-xs">
+                    {{page.description}}
+                </div>
+                <div class="col-sm-1 col-xs-6">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}">
+                        <span class="glyphicon glyphicon-cog pull-right"></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}" class="navbar-link">
+                      <span class="glyphicon glyphicon-user">
+                      </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,88 @@
+<script>
+    $('#updateWidgetBtn').hide();
+
+    function validateInput(event) {
+        if ($.trim($('#upload').val()).length) {
+            event.submit();
+        }
+        else {
+            event.preventDefault();
+            window.alert("Please choose a file");
+        }
+    }
+
+    /* var selector = '.nav li';
+
+     $(selector).on('click', function(){
+     $(selector).removeClass('active');
+     $(this).addClass('active');
+     $(this).attr("data-target","#tab2");
+
+     });*/
+
+    $(init);
+    function init() {
+        $('#tab2Content').hide();
+    }
+
+    $('#tab1').click(activateTab1);
+    $('#tab2').click(activateTab2);
+
+    function activateTab1() {
+        $('#tab2Content').hide();
+        $('#tab1Content').show();
+    }
+
+    function activateTab2() {
+        $('#tab1Content').hide();
+        $('#tab2Content').show();
+    }
+
+</script>
+
+<h1>IMAGE Editor</h1>
+
+<ul class="nav nav-tabs" id="imageTab">
+    <li><a id="tab1">Image URL</a></li>
+    <li><a id="tab2">Upload Image</a></li>
+</ul>
+<br />
+
+<div class="container-fluid alt-pad" id="tab1Content">
+    <div class="col-xs-12">
+        <label for="url">URL</label>
+        <input ng-model="model.widget.url"
+               id="url"
+               type="url"
+               class="form-control"
+               placeholder="URL" />
+        <button ng-click="model.updateWidget(model.widget)" id="btn-url" class="btn btn-block btn-info">Upload Image URL</button>
+    </div>
+    <br />
+</div>
+
+<div class="container-fluid alt-pad" id="tab2Content">
+    <div class="col-xs-12">
+        <form action="/api/upload"  method="post" enctype="multipart/form-data">
+            <label for="upload">Upload</label>
+            <input id="upload"
+                   name="myFile"
+                   type="file"
+                   accept="image/*"
+                   class="form-control tab-pane"
+                   placeholder="Choose file"/>
+            <label for="width">Width</label>
+            <input ng-model="model.widget.width"
+                   id="width"
+                   name="width"
+                   type="text"
+                   value="100%"
+                   class="form-control"
+                   placeholder="Width" />
+            <input name="uid" value="{{model.userId}}"   style="display: none"/>
+            <input name="wid" value="{{model.websiteId}}"   style="display: none"/>
+            <input name="widgetId" value="{{model.widget._id}}"   style="display: none"/>
+            <button onclick="validateInput(event)" class="btn btn-block btn-primary">Upload Image</button>
+        </form>
+    </div>
+</div>

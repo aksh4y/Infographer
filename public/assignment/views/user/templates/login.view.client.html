@@ -1,0 +1,22 @@
+<div class="container">
+    <h1 class="as-heading">Login</h1>
+    <label for="username">Username</label>
+    <input ng-model="user.username"
+           id="username"
+           type="text"
+           class="form-control"
+           placeholder="Username"/>
+    <label for="password">Password</label>
+    <input ng-model="user.password"
+            id="password"
+           type="Password"
+           class="form-control"
+           placeholder="Password"/>
+    <a class="btn btn-primary btn-block"
+       ng-click="model.login(user)">Login</a>
+    <a class="btn btn-success btn-block"
+       href="#/register">Register</a>
+    <br />
+    <div class="alert alert-danger" ng-show="model.error">{{model.error}}</div>
+    <div class="alert alert-success" ng-show="model.message">{{model.message}}</div>
+</div>

@@ -1,0 +1,89 @@
+/*This stylesheet contains some custom class rather than Bootstrap*/
+
+
+ body { 
+	-webkit-background-size: cover;
+     background:
+             linear-gradient(
+                     rgba(0, 0, 0, 0.75),
+                     rgba(0, 0, 0, 0.75)
+             ),
+             url("../assets/bg.jpg") no-repeat center center fixed;
+	 -moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+ .as-heading {
+	 text-align: center;
+ }
+
+ th {
+     color: white;
+ }
+
+ tr {
+     color: #FF1493;
+ }
+ /*h1 {
+	 font-size: 70px;
+ }
+
+ h2 {
+	 font-size: 60px;
+ }
+
+ h3 {
+	 font-size: 50px;
+ }*/
+
+ a {
+     color: #FF1493;
+	/* font-size: 25px;*/
+ }
+
+ul {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.list-inline li:after{
+    content:'|';
+    margin:0 5px 0 10px;
+    color: white;
+    vertical-align: text-bottom;
+    font-size: 20px;
+}
+
+.list-inline li:last-child:after {
+    content: '|';
+    margin: 0 10px 0 10px;
+    font-size: 0;
+}
+
+.navbar {
+	background-color: transparent;
+	background: transparent;
+	border-color: transparent;
+}
+
+.navbar li { 
+	color: #000
+}
+
+.list-group-item {
+    color: #FF1493;
+}
+.as-list-header {
+    color: aqua;
+    font-weight: bold;
+}
+
+.as-list-header a{
+    color: aqua;
+    font-weight: bold;
+}
+
+.as-left-pad {
+    padding-left: 5px;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WebAppMaker">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no">
+
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap Material Design -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.min.css">
+
+    <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>-->
+    <link href="../css/style.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>-->
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.iife.min.js"></script>
+-->
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+    <!-- Directives -->
+    <script src="directives/wbdv-sortable.js"></script>
+
+    <!-- Controllers -->
+    <script src="views/user/controllers/user.controller.client.js"></script>
+    <script src="views/website/controllers/website.controller.client.js"></script>
+    <script src="views/page/controllers/page.controller.client.js"></script>
+    <script src="views/widget/controllers/widget.controller.client.js"></script>
+
+    <!-- Services -->
+    <script src="services/user.service.client.js"></script>
+    <script src="services/page.service.client.js"></script>
+    <script src="services/website.service.client.js"></script>
+    <script src="services/widget.service.client.js"></script>
+    <title>Web Maker</title>
+</head>
+<body class="as-body-padding">
+    <div ng-view></div>
+
+    <!--<script src="https://cdn.rawgit.com/HubSpot/tether/v1.3.4/dist/js/tether.min.js"></script>
+    <script src="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/dist/dist/bootstrap-material-design.iife.min.js"></script>
+    &lt;!&ndash; IE10 viewport hack for Surface/desktop Windows 8 bug &ndash;&gt;
+    <script src="https://maxcdn.bootstrapcdn.com/js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+        $('body').bootstrapMaterialDesign();
+    </script>-->
+</body>
+</html>
