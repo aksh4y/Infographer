@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+
+    <script
+            src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<h1>Hello world!</h1>
+<script>
+
+    $(init);
+
+    function  init() {
+        jQuery('h1')
+            .css('color', 'red')
+            .html('Hello Again!');
+        var h2 = jQuery('<h2>This is dynamic heading</h2>');
+        var body = jQuery('body');
+        body.append(h2);
+        var paragraph = $('<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>')
+        body.prepend(paragraph);
+
+        var movies = ['Terminator', 'Aliens', 'Titanic', 'Avatar'];
+
+        var list = $('<ul>');
+        for(var m in movies) {
+            var li = $('<li>');
+            li.append(movies[m]);
+            list.append(li);
+        }
+        body.append(list);
+
+        $('h1').draggable();
+
+        paragraph.draggable();
+
+        list.sortable();
+
+        $('.myList').sortable();
+    }
+
+</script>
+
+<div class="myList">
+    <div>123</div>
+    <div>234</div>
+    <div>345</div>
+    <div>456</div>
+</div>
+</body>
+</html>

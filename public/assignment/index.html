@@ -25,6 +25,9 @@
 -->
     <script src="app.js"></script>
     <script src="config.js"></script>
+    <script src="../js/ripple-effect.js"></script>
+    <script src="../js/material.min.js"></script>
+    <script src="../js/ripples.min.js"></script>
 
     <!-- Directives -->
     <script src="directives/wbdv-sortable.js"></script>
@@ -40,11 +43,11 @@
     <script src="services/page.service.client.js"></script>
     <script src="services/website.service.client.js"></script>
     <script src="services/widget.service.client.js"></script>
-    <title>Web Maker</title>
+    <title>Infographor</title>
 </head>
 <body class="as-body-padding">
     <div ng-view></div>
-
+    <script>$.material.init();</script>
     <!--<script src="https://cdn.rawgit.com/HubSpot/tether/v1.3.4/dist/js/tether.min.js"></script>
     <script src="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/dist/dist/bootstrap-material-design.iife.min.js"></script>
     &lt;!&ndash; IE10 viewport hack for Surface/desktop Windows 8 bug &ndash;&gt;
