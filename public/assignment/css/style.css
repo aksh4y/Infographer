@@ -8,6 +8,10 @@ input.form-control {
     margin-bottom: 5px;
 }
 
+.as-navbar-bg {
+    background-color: rgba(77, 6, 1, 0.54);
+}
+
 body {
     -webkit-background-size: cover;
     background:
@@ -26,7 +30,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .as-body-padding {
-    padding-top: 70px;
+    padding-top: 60px;
     padding-bottom: 70px;
 }
 
