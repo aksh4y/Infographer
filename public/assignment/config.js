@@ -75,15 +75,6 @@
                 ,controller: "WidgetEditController",
                 controllerAs: "model"
             })
-            .when("/infographic/list", {
-                templateUrl: 'views/infographics/templates/infographic-list.view.client.html'
-            })
-            .when("/infographic/edit", {
-                templateUrl: 'views/infographics/templates/infographic-edit.view.client.html'
-            })
-            .when("/sidebar",{
-                templateUrl: '../uploads/index.html'
-            })
             .otherwise({
                 redirectTo: "/"
             });

@@ -50,7 +50,7 @@
         }
     }
 
-    function WidgetEditController($routeParams, WidgetService,$location) {
+    function WidgetEditController($routeParams, FlickrService, WidgetService,$location) {
         var vm = this;
         vm.userId = $routeParams.uid;
         vm.websiteId = $routeParams.wid;
@@ -59,10 +59,14 @@
         vm.getEditorTemplateUrl = getEditorTemplateUrl;
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
+        vm.searchPhotos = searchPhotos;
+        vm.selectPhoto = selectPhoto;
+        //vm.selectPhoto  = selectPhoto;
         function init() {
             WidgetService
                 .findWidgetById(vm.widgetId)
                 .success(function(response) {
+                    console.log("widget controller found widget to edit:"+response);
                     vm.widget=response;
                 })
                 .error(function(){
@@ -72,6 +76,40 @@
         init();
         //console.log(vm.widget);
 
+        function searchPhotos(searchTerm) {
+            FlickrService
+             .searchPhotos(searchTerm)
+             .then(function(response) {
+             data = response.data.replace("jsonFlickrApi(","");
+             data = data.substring(0,data.length - 1);
+             data = JSON.parse(data);
+             vm.photos = data.photos;
+             });
+        }
+
+        function selectPhoto(photo, width) {
+            var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server;
+            url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
+            WidgetService
+                .findWidgetById(vm.widgetId)
+                .then(function (response) {
+                    var updatedWidget = response.data;
+                    updatedWidget.url = url;
+                    updatedWidget.width = width;
+                    WidgetService
+                        .updateWidget(vm.widgetId, updatedWidget)
+                        .then(function (response) {
+                            var updatedWidgetObject = response;
+                            if(updatedWidgetObject){
+                                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                            }
+                        }, function (err) {
+                            vm.error = "Update error!";
+                        });
+                }, function (err) {
+                    vm.error = "Widget not found!";
+                });
+        }
         function getEditorTemplateUrl(type) {
             return 'views/widget/templates/editors/widget-' + type + '-editor.view.client.html';
         }
@@ -109,14 +147,16 @@
         vm.createHeadingWidget = createHeadingWidget;
         vm.createMediaWidget = createMediaWidget;
         vm.createHTMLWidget = createHTMLWidget;
+        vm.createTextWidget = createTextWidget;
         vm.getEditorTemplateUrl = getEditorTemplateUrl;
 
         function createMediaWidget(type) {
             var newWidget = {
-                widgetType: type,
-                pageId: vm.pageId,
+                type: type,
+                _page: vm.pageId,
                 url: "http://",
-                width: "100%"
+                width: "100%",
+                height: "100%"
             };
             WidgetService
                 .createWidget(vm.pageId, newWidget)
@@ -130,8 +170,8 @@
 
         function createHeadingWidget() {
             var newWidget = {
-                widgetType: "HEADING",
-                pageId: vm.pageId,
+                type: 'HEADING',
+                _page: vm.pageId,
                 text: "New Heading",
                 size: 1
             };
@@ -147,10 +187,28 @@
 
         function createHTMLWidget() {
             var newWidget = {
-                widgetType: "HTML",
-                pageId: vm.pageId,
+                type: 'HTML',
+                _page: vm.pageId,
                 text: "<p>New Paragraph</p>"
             };
+            WidgetService
+                .createWidget(vm.pageId, newWidget)
+                .success(function (widget) {
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id+"?new=yes");
+                })
+                .error(function () {
+                    vm.error = "Could not create widget";
+                });
+        }
+
+        function createTextWidget() {
+            var newWidget = {
+                type: 'TEXT',
+                _page: vm.pageId,
+                text: "Text",
+                rows: 2,
+                placeholder: "Enter text",
+                formatted: false};
             WidgetService
                 .createWidget(vm.pageId, newWidget)
                 .success(function (widget) {

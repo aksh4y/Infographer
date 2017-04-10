@@ -43,16 +43,17 @@
                 page.name == null        ||
                 page.name == ""          ||
                 page.description == null ||
-                page.description == "") {
+                page.description == ""   ||
+                page.title == null        ||
+                page.title == "") {
                     vm.error = "Please fill all details";
                     return;
             }
 
             var newPage = {
                 name: page.name,
-                description: page.description,
-                websiteId: vm.websiteId,
-                created: new Date()
+                title: page.title,
+                description: page.description
             };
             PageService
                 .createPage(vm.websiteId, newPage)
@@ -77,7 +78,7 @@
             PageService
                 .findPageById(vm.pageId)
                 .success(function (response) {
-                    vm.page = response;
+                    vm.page = response[0];
                 });
             PageService.findAllPagesForWebsite(vm.websiteId)
                 .success(function (response) {

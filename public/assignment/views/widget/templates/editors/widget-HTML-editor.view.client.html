@@ -1,3 +1,9 @@
 <h1>HTML Editor</h1>
 <label>Text</label>
-<input ng-model="model.widget.text" class="form-control"/>
+<div ng-model="model.widget.text"
+     text-angular
+     ta-toolbar="[['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'quote'],
+            ['bold','italics','underline','strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],
+            ['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+            ['indent','outdent'],['html', 'insertImage','insertLink', 'wordcount', 'charcount']]">
+</div>

@@ -58,10 +58,10 @@
                     </a>
                 </div>
                 <div class="col-xs-3 hidden-xs">
-                    {{website.created | date}}
+                    {{website.dateCreated | date}}
                 </div>
                 <div class="col-xs-2 hidden-xs">
-                    {{website.developerId}}
+                    {{website._user}}
                 </div>
                 <div class="col-sm-1 col-xs-6">
                     <a href="#/user/{{model.userId}}/website/{{website._id}}">
@@ -71,7 +71,7 @@
             </div>
         </li>
     </ul>
-    <a href="javascript:void(0)" class="btn btn-success btn-fab"><i class="material-icons">grade</i></a>
+    <!--<a href="javascript:void(0)" class="btn btn-success btn-fab"><i class="material-icons">grade</i></a>-->
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">

@@ -74,7 +74,7 @@
             WebsiteService
                 .findWebsiteById(vm.websiteId)
                 .success(function (response) {
-                    vm.website = response;
+                    vm.website = response[0];
                 })
                 .error(function () {
                     vm.error("An error has occurred!");

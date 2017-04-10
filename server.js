@@ -10,7 +10,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 app.use(session({
-    secret: 'this is the secret',
+    secret: 'this is the secret',    // process.env.SESSION_SECRET
     resave: true,
     saveUninitialized: true
 }));
@@ -22,9 +22,10 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
 
-var assignment = require("./assignment/app.js");
-assignment(app);
-
+require ("./test/app.js")(app);
+require("./todo/app")(app);
+require("./assignment/app.js")(app);
+//require("./passport/services/user.service.server")(app);
 var port = process.env.PORT || 3000;
 
 app.listen(port);
