@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-xs-3">
+        <ul class="list-group">
+            <li class="list-group-item active" ng-repeat="course in courses">
+                Courses
+                <a ui-sref="course.new" style="color: red">
+                    <span class="glyphicon glyphicon-plus pull-right"></span>
+                    {{course.name}}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-9" ui-view="courseDetails">
+
+    </div>
+</div>

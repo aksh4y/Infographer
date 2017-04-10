@@ -1,0 +1,98 @@
+html, body {
+    height:100%;
+    margin:0;
+    padding:0
+}
+
+input.form-control {
+    margin-bottom: 5px;
+}
+
+body {
+    -webkit-background-size: cover;
+    background:
+            linear-gradient(
+                    rgba(0, 0, 0, 0.75),
+                    rgba(0, 0, 0, 0.75)
+            ),
+            url("../../assets/bg.jpg") no-repeat center center fixed;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF;
+}
+
+.as-body-padding {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.no-pad {
+    padding-top: 0;
+}
+
+a, label {
+    color: #FF1493;
+}
+
+.list-group-item {
+    color: #FF1493;
+}
+
+.navbar-default {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.navbar-default .navbar-brand {
+    color: #FFFFFF;
+}
+.navbar-default .navbar-link {
+    color: #FFFFFF;
+}
+.navbar-text a, .navbar-brand a {
+    color: #FFFFFF;
+}
+
+.list-group-item {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.as-toolbar {
+    position: absolute;
+    right: 15px;
+    background-color: white;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    border-bottom-left-radius: 5px;
+    opacity: 0.7;
+}
+
+.as-list-header {
+    color: aqua;
+    font-weight: bold;
+}
+
+.as-list-header a{
+    color: aqua;
+    font-weight: bold;
+}
+
+.as-img {
+    vertical-align: inherit;
+}
+
+.as-left-pad {
+    padding-left: 5px;
+}
+
+.as-bottom-pad {
+    padding-bottom: 70px;
+}
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}

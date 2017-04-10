@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../assignment/css/style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+        .ng-submitted .ng-invalid {
+            background-color: red;
+        }
+    </style>
+</head>
+<body ng-app="validationApp">
+<br/>
+<div class="container-fluid" ng-binding><!-- ng-controller="validationController as model">-->
+    <form name="form1" novalidate>
+        <input ng-model="user.username" name="username" class="form-control" required/>
+        <span ng-if="form1.$submitted && form1.username.$error.required">Username is required</span>
+        <input ng-model="user.email" name="email" class="form-control" type="email" required/>
+        <span ng-if="form1.$submitted && form1.email.$error.required">Email is required</span>
+        <span ng-if="form1.$submitted && form1.email.$error.email">Email is invalid format</span>
+        <button type="submit" class="btn btn-block btn-primary">Submit</button>
+    </form>
+    {{form1}}
+</div>
+
+</body>
+</html>
