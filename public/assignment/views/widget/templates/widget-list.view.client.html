@@ -41,11 +41,11 @@
                     <ng-include src="'views/widget/templates/widget-image.view.client.html'">
                 </div>
                 <div style="width:{{widget.width}}; height:{{widget.height}}">
-                    <div ng-switch-when="YOUTUBE" class="youtube-widget">
-                        <ng-include src="'views/widget/templates/widget-youtube.view.client.html'">
+                    <div ng-switch-when="SHAPE">
+                        <ng-include src="'views/widget/templates/widget-shape.view.client.html'">
                     </div>
                 </div>
-                <div ng-switch-when="HTML">
+                <div ng-switch-when="LINE">
                     <ng-include src="'views/widget/templates/widget-html.view.client.html'">
                 </div>
             </div>

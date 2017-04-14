@@ -1,0 +1,41 @@
+<script>
+
+    $('#text1').on('click', function () {
+        var t = $(this).clone();
+        //$(t).draggable();
+        $('#canvas').append(t);
+        $('.draggable').draggable().find("draggable").resizable();;
+    });
+
+    $('#text2').on('click', function () {
+        var t = $(this).clone();
+       // $(t).draggable();
+        $('#canvas').append(t);
+        $('.draggable').draggable();
+    });
+
+    $('#jumbo').on('click', function () {
+        var t = $('#jumboTemp').clone();
+        $(t).css('display', 'block');
+        $('#canvas').append(t);
+        $('.draggable').draggable();
+    });
+
+</script>
+
+<div class="col-xs-12" style="margin-left:10px">
+    <div id="text1" class="row draggable widget">
+        <h1>TEXT</h1>
+    </div>
+    <div id="text2" class="row draggable widget">
+        <h1 style="font-family: 'Amatic SC', cursive;">TEXT</h1>
+    </div>
+    <div id="jumbo" class="row draggable widget">
+        Jumbotron
+    </div>
+</div>
+
+<div id="jumboTemp" class="row draggable jumbotron text-center" style="display: none">
+    <h1 class="">Header!</h1>
+    <p class="">Text</p>
+</div>

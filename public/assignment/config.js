@@ -75,6 +75,14 @@
                 ,controller: "WidgetEditController",
                 controllerAs: "model"
             })
+            .when("/creator", {
+                templateUrl: 'views/creator/templates/creator.edit.client.html'/*,
+                controller: "InfographicNewController",
+                controllerAs: "model"*/
+            })
+            .when("/welcome", {
+                templateUrl: 'views/creator/templates/welcome.html'
+            })
             .otherwise({
                 redirectTo: "/"
             });

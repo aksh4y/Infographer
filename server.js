@@ -25,7 +25,7 @@ app.use(express.static(__dirname + '/public'));
 require ("./test/app.js")(app);
 require("./todo/app")(app);
 require("./assignment/app.js")(app);
-require("./passport/services/user.service.server")(app);
+//require("./passport/services/user.service.server");
 var port = process.env.PORT || 3000;
 
 app.listen(port);

@@ -1,0 +1,41 @@
+<script>
+    $(function() {
+        $('#cp').colorpicker().on('changeColor', function(e) {
+            $('#page-content-wrapper').css('background', "").css('background-color', e.color.toString(
+                'rgba'));
+        });
+    });
+
+    $('#bg-img > img').on('click', function() {
+        var imageUrl = $(this).attr('src');
+        imageUrl = imageUrl.replace("_tn", "");
+        $('#page-content-wrapper').css('background', 'url(' + imageUrl + ')');
+    });
+    
+    $('#bg_none').on('click', function () {
+        $('#page-content-wrapper').css('background', '').css('background-color', 'white');
+    });
+
+</script>
+
+<div class="col-xs-12">
+    <svg id="bg_none" width="90" height="90" style="margin-right: 8px;">
+        <rect width="90" height="90"
+              style="fill:white;" />
+    </svg>
+    <img id="cp" src="../../../../assets/bgs/color.png" width="100" height="100" />
+    <li role="separator" class="divider"></li>
+    <div id="bg-img">
+        <img src="../../../../assets/bgs/wood_tn.jpg" />
+        <img src="../../../../assets/bgs/wood_2_tn.jpg" />
+        <img src="../../../../assets/bgs/color_wood_tn.jpg" />
+        <img src="../../../../assets/bgs/blur.jpg" />
+        <img src="../../../../assets/bgs/cityview.jpg" />
+        <img src="../../../../assets/bgs/coffee_bean_tn.jpg" />
+        <img src="../../../../assets/bgs/colorful_tn.jpg" />
+        <img src="../../../../assets/bgs/highway.jpg" />
+        <img src="../../../../assets/bgs/lights_tn.jpg" />
+        <img src="../../../../assets/bgs/notes_tn.jpg" />
+    </div>
+
+</div>
