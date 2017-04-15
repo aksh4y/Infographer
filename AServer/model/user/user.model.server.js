@@ -38,7 +38,7 @@ module.exports = function () {
 
     function createUser(user) {
         var deferred = q.defer();
-        //user.password = bcrypt.hashSync(user.password);
+        user.password = bcrypt.hashSync(user.password);
         userModel.create(user, function(err, u) {
             if(err) {
                 deferred.reject(err);

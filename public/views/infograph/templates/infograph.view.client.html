@@ -1,17 +1,6 @@
 <script src="../../../js/mouse.js"></script>
 <script src="../../../js/dropbox.js"></script>
-<script>
-    function printCanvas() {
-        var pdf = new jsPDF('p', 'mm', 'a4');
-        var options = {
-            background: '#fff'
-        };
-        pdf.addHTML($('#page-content-wrapper')[0], options, function () {
-            pdf.autoPrint();
-            window.open(pdf.output('bloburl'), '_blank');
-        });
-    }
-</script>
+<script src="../../../js/print.js"></script>
 <script>
     $('#page-content-wrapper').append('<img id="bg-img" ng-src="{{model.infographic.url}}" />');
 </script>

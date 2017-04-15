@@ -4,6 +4,7 @@
 
 // Print the canvas
 function printCanvas() {
+    console.log("print canvas");
     var pdf = new jsPDF('p', 'mm', 'a4');
     var options = {
         background: '#fff'

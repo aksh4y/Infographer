@@ -77,12 +77,12 @@
                 }
             })
             .when("/editor", {
-                templateUrl: 'views/infograph/templates/infograph.edit.client.html',
+                templateUrl: 'views/infograph/templates/infograph.edit.view.client.html'/*,
                 controller: "InfographEditController",
                 controllerAs: "model",
                 resolve: {
                     currentUser: checkLogin
-                }
+                }*/
             })
             .otherwise({
                 redirectTo: "/"

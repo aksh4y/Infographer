@@ -6,6 +6,7 @@ module.exports = function (app, userModel) {
     require('../../express');
 
     var passport = require('passport');
+    var bcrypt = require("bcrypt-nodejs");
 
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
@@ -143,8 +144,8 @@ module.exports = function (app, userModel) {
     passport.use(new LocalStrategy(localStrategy));
 
     function localStrategy(username, password, done) {
-        userModel
-            .findUserByCredentials({username: username, password: password})
+        /*userModel
+            .findUserByCredentials({username: username, password: bcrypt.compareSync(password, bcrypt.hash(password))})
             .then(
                 function(user) {
                     if (!user) { return done(null, false); }
@@ -153,7 +154,18 @@ module.exports = function (app, userModel) {
                 function(err) {
                     if (err) { return done(err); }
                 }
-            );
+            );*/
+        userModel
+            .findUserByUsername(username)
+            .then(
+                function(user) {
+                    // if the user exists, compare passwords with bcrypt.compareSync
+                    if(user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                });
     }
 
     function register(req, res) {
