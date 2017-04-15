@@ -68,12 +68,14 @@ module.exports = function () {
     }
 
     function findInfographicById(infographicId) {
+        console.log(infographicId);
         var d = q.defer();
         infographicModel
             .find({"_id": infographicId}, function (err, infographic) {
                 if (err) {
                     d.reject(err);
                 } else {
+                    console.log("found in model");
                     d.resolve(infographic);
                 }
             });

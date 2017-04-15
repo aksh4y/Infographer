@@ -1,0 +1,122 @@
+(function () {
+    angular
+        .module("WebAppMaker", ['ngRoute'])
+        .config(configuration);
+
+    function configuration($routeProvider, $httpProvider) {
+
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+        $httpProvider.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+
+
+        $routeProvider
+            .when("/", {
+                templateUrl: 'views/infograph/templates/welcome.html'
+            })
+            .when("/login", {
+                templateUrl: 'views/user/templates/login.view.client.html'
+            })
+            .when("/login-local", {
+                templateUrl: 'views/user/templates/login-local.view.client.html',
+                controller: 'LoginController',
+                controllerAs: 'model'
+            })
+            .when("/register", {
+                templateUrl: 'views/user/templates/register.view.client.html'
+            })
+            .when("/register-local", {
+                templateUrl: 'views/user/templates/register-local.view.client.html',
+                controller: 'RegisterController',
+                controllerAs: 'model'
+            })
+            .when('/profile', {
+                templateUrl: 'views/user/templates/profile.view.client.html',
+                controller: 'ProfileController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkLogin
+                }
+            })
+            .when("/dashboard", {
+                templateUrl: 'views/user/templates/dashboard.view.client.html',
+                controller: "DashboardController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLogin
+                }
+            })
+            /*.when("/user/:uid/infograph/:inid/widget",{
+             templateUrl: 'views/widget/templates/widget-list.view.client.html',
+             controller: "WidgetListController",
+             controllerAs: "model"
+             })
+            .when("/user/:uid/infograph/:inid/widget/new", {
+                templateUrl: 'views/widget/templates/widget-chooser.view.client.html',
+                controller: "WidgetNewController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/infograph/:inid/widget/:wgid", {
+                templateUrl: 'views/widget/templates/widget-edit.view.client.html'
+                , controller: "WidgetEditController",
+                controllerAs: "model"
+            })*/
+            .when("/viewer/:inid", {
+                templateUrl: 'views/infograph/templates/infograph.view.client.html',
+                controller: "InfographViewController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLogin
+                }
+            })
+            .when("/creator", {
+                templateUrl: 'views/infograph/templates/infograph.new.client.html',
+                controller: "InfographNewController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLogin
+                }
+            })
+            .when("/editor", {
+                templateUrl: 'views/infograph/templates/infograph.edit.client.html',
+                controller: "InfographEditController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLogin
+                }
+            })
+            .otherwise({
+                redirectTo: "/"
+            });
+    }
+
+        function checkAdmin($q, userService, $location) {
+            var deferred = $q.defer();
+            userService
+                .isAdmin()
+                .then(function (user) {
+                    console.log(user);
+                    if(user != '0' && user.roles.indexOf('ADMIN') > -1) {
+                        deferred.resolve(user);
+                    } else {
+                        $location.url('/profile');
+                        deferred.reject();
+                    }
+                });
+            return deferred.promise;
+        }
+
+        function checkLogin($q, UserService, $location) {
+            var deferred = $q.defer();
+            UserService
+                .loggedIn()
+                .then(function (user) {
+                    if(user != '0') {
+                        deferred.resolve(user);
+                    } else {
+                        $location.url('/login');
+                        deferred.reject();
+                    }
+                });
+            return deferred.promise;
+        }
+})();

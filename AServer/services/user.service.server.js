@@ -34,13 +34,13 @@ module.exports = function (app, userModel) {
     app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
     app.get('/google/oauth/callback',
         passport.authenticate('google', {
-            successRedirect: '/assignment/index.html#/profile',
-            failureRedirect: '/assignment/index.html#/login'
+            successRedirect: '/index.html#/profile',
+            failureRedirect: '/index.html#/login'
         }));
     app.get('/facebook/oauth/callback',
         passport.authenticate('facebook', {
-            successRedirect: '/assignment/index.html#/profile',
-            failureRedirect: '/assignment/index.html#/login'
+            successRedirect: '/index.html#/profile',
+            failureRedirect: '/index.html#/login'
 
     }));
 
@@ -163,7 +163,6 @@ module.exports = function (app, userModel) {
             .then(
                 function(user){
                     if(user) {
-                        console.log("register fn");
                         res.json(null);
                     } else {
                         return userModel.createUser(newUser);
@@ -176,7 +175,6 @@ module.exports = function (app, userModel) {
             .then(
                 function(user){
                     if(user){
-                        console.log(user);
                         req.login(user, function(err) {
                             user.password = '';
                             if(err) {

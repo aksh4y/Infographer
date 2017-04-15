@@ -1,0 +1,67 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-left">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget"
+                   class="navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    Choose Widget
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid alt-pad">
+    <div class="col-xs-12">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a ng-click="model.createHeadingWidget()">
+                    Heading
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a ng-click="model.createHTMLWidget()">
+                    HTML
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a ng-click="model.createTextWidget()">
+                    Text
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a ng-click="model.createMediaWidget('IMAGE')">
+                    Image
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a ng-click="model.createMediaWidget('YOUTUBE')">
+                    Youtube
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="alert alert-danger" ng-show="model.error">{{model.error}}</div>
+<div class="alert alert-success" ng-show="model.message">{{model.message}}</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}" class="navbar-link">
+                      <span class="glyphicon glyphicon-user">
+                      </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

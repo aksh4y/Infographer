@@ -1,0 +1,66 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-right">
+                <a ng-click="model.update(model.user)" class="navbar-link">
+                  <span class="glyphicon glyphicon-ok">
+                  </span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand brand-padding " href="#">
+                    Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid" style="margin-top:30px">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4">
+    <form>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username" disabled>
+        </div>
+        <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name" placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name" placeholder="Last Name">
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input ng-model="model.user.email" type="email" class="form-control" id="email" placeholder="Email">
+        </div>
+    </form>
+
+    <a class="btn btn-primary btn-block"
+       ng-click="model.update(model.user)">Update</a>
+    <a class="btn btn-info btn-block"
+       href="#/dashboard">Dashboard</a>
+    <a class="btn btn-warning  btn-block"
+       ng-click="model.logout()">Logout</a>
+    <a class="btn btn-danger  btn-block"
+       ng-click="model.delete(model.user._id)">Delete Profile</a>
+    </div>
+    <div class="col-xs-4"></div>
+</div>
+<br />
+<div class="alert alert-danger" ng-show="model.error">{{model.error}}</div>
+<div class="alert alert-success" ng-show="model.message">{{model.message}}</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text" style="width: 100%;">
+            <div class="text-center">
+                <a href="mailto:4kshay@ccs.neu.edu">
+                    <span class="copyright">© Akshay Sadarangani</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

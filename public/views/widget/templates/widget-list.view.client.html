@@ -1,0 +1,66 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"
+                   class="navbar-link">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+            <div class="navbar-text pull-left">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    Widgets
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid as-bottom-pad">
+    <div wam-sortable>
+        <div ng-repeat="widget in model.widgets">
+            <div class="as-toolbar">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class="glyphicon glyphicon-align-justify" style="cursor:move"></span>
+            </div>
+            <div ng-switch="widget.type">
+                <div ng-switch-when="HEADING">
+                    <ng-include src="'views/widget/templates/widget-heading.view.client.html'">
+                </div>
+                <div ng-switch-when="TEXT">
+                    <ng-include src="'views/widget/templates/widget-text.view.client.html'">
+                </div>
+                <div ng-switch-when="IMAGE">
+                    <ng-include src="'views/widget/templates/widget-image.view.client.html'">
+                </div>
+                <div style="width:{{widget.width}}; height:{{widget.height}}">
+                    <div ng-switch-when="SHAPE">
+                        <ng-include src="'views/widget/templates/widget-shape.view.client.html'">
+                    </div>
+                </div>
+                <div ng-switch-when="LINE">
+                    <ng-include src="'views/widget/templates/widget-html.view.client.html'">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-right">
+                <a href="#/user/{{model.userId}}" class="navbar-link">
+                      <span class="glyphicon glyphicon-user">
+                      </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

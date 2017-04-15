@@ -5,11 +5,12 @@
 module.exports = function (app, infographicModel) {
     /*app.post("/api/user/:userId/infographic", createInfographic);
 
-    app.get("/api/infographic/:infographicId", findInfographicById);
+
     app.put("/api/infographic/:websiteId", updateInfographic);
     app.delete("/api/infographic/:websiteId", deleteInfographic);*/
 
     app.get("/api/infographic/:userId", findAllInfographicsForUser);
+    app.get("/api/viewer/:inid", findInfographicById);
 
 
     /*var websites = [
@@ -21,16 +22,17 @@ module.exports = function (app, infographicModel) {
         { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem", created: new Date() }
     ];*/
 
-    /*function findWebsiteById(req, res) {
-        var websiteId = req.params['websiteId'];
-        websiteModel
-            .findWebsiteById(websiteId)
-            .then(function (website) {
-                res.json(website);
+    function findInfographicById(req, res) {
+        var infographId = req.params['inid'];
+        console.log(infographId);
+        infographicModel
+            .findInfographicById(infographId)
+            .then(function (infograph) {
+                res.json(infograph);
             }, function (err) {
                 res.sendStatus(404).send(err);
             });
-    }*/
+    }
 
     function findAllInfographicsForUser(req, res){
         console.log("reached service");

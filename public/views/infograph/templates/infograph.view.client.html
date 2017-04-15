@@ -1,0 +1,78 @@
+<script src="../../../js/mouse.js"></script>
+<script src="../../../js/dropbox.js"></script>
+<script>
+    function printCanvas() {
+        var pdf = new jsPDF('p', 'mm', 'a4');
+        var options = {
+            background: '#fff'
+        };
+        pdf.addHTML($('#page-content-wrapper')[0], options, function () {
+            pdf.autoPrint();
+            window.open(pdf.output('bloburl'), '_blank');
+        });
+    }
+</script>
+<script>
+    $('#page-content-wrapper').append('<img id="bg-img" ng-src="{{model.infographic.url}}" />');
+</script>
+
+<ul class='custom-menu'>
+    <li data-action = "delete">Delete</li>
+</ul>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-right">
+                <a href="#/" class="navbar-link">
+                    <span class="glyphicon glyphicon-log-out"> Logout</span>
+                </a>
+            </div>
+            <div class="navbar-header pull-left">
+                <a href="#/profile" class="navbar-brand">
+                    <span class="glyphicon glyphicon-chevron-left">Dashboard</span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    <span class="glyphicon glyphicon-print" stlyle="padding-right:10px"
+                          onClick="printCanvas()"> Print</span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    <span class="glyphicon glyphicon-download" stlyle="padding-right:10px"
+                          onClick="downloadInfographic()"> Download</span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    <span id="dbSaver"></span>
+                </a>
+            </div>
+            <div class="navbar-brand fb-share-button"
+                 data-href="http://4kshay.tech"
+                 data-layout="button"
+                 data-size="small">
+            </div>
+
+        </div>
+    </div>
+
+</nav>
+
+<div class="container-fluid">
+    <div id="wrapper" data-spy="scroll" data-target="#spy" class="">
+        <div class="row">
+            <div class="col-md-2"></div>
+
+            <!-- Page content -->
+            <div class="col-md-8 col-sm-12">
+                <div class="header" id="infoTitle">{{model.infographic.name}}</div>
+                <div id="page-content-wrapper">
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
