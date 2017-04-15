@@ -1,0 +1,72 @@
+<script>
+    jQuery(document).ready(function($) {
+        //  var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+        <!-- another regex filter you can use -->
+        var testEmail =    /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
+        jQuery('input#reg-email').bind('input propertychange', function() {
+            if (testEmail.test(jQuery(this).val()))
+            {
+                jQuery(this).css({ 'border':'3px solid green'});
+                jQuery('button#register').prop("disabled",false);
+            } else
+            {
+                jQuery(this).css({ 'border':'3px solid red'});
+                jQuery('button#register').prop("disabled",true);
+            }
+        });
+    });
+</script>
+<div class="container">
+    <h1>Register</h1>
+    <label for="reg-username">Username</label>
+    <input ng-model="user.username"
+           id="reg-username"
+           type="text"
+           class="form-control"
+           placeholder="Username"/>
+
+    <label for="reg-firstname">First Name</label>
+    <input ng-model="user.firstName"
+           id="reg-firstname"
+           type="text"
+           class="form-control"
+           placeholder="First Name"/>
+
+    <label for="reg-lastname">Last Name</label>
+    <input ng-model="user.lastName"
+           id="reg-lastname"
+           type="text"
+           class="form-control"
+           placeholder="Last Name"/>
+
+    <label for="reg-email">Email</label>
+    <input ng-model="user.email"
+           id="reg-email"
+           type="email"
+           class="form-control"
+           placeholder="Email"/>
+
+    <label for="reg-password">Password</label>
+    <input ng-model="user.password"
+           id="reg-password"
+           type="password"
+           class="form-control"
+           placeholder="Password"
+           required/>
+
+    <label for="reg-verify-password">Verify Password</label>
+    <input ng-model="user.verifypassword"
+           id="reg-verify-password"
+           type="password"
+           class="form-control"
+           placeholder="Verify password"
+           required/>
+    <a class="btn btn-primary btn-block" id="register"
+       ng-click="model.register(user)">Register</a>
+    <a class="btn btn-danger  btn-block"
+       href="#/login">Cancel</a>
+    <br />
+    <div class="alert alert-danger" ng-show="model.error">{{model.error}}</div>
+    <div class="alert alert-success" ng-show="model.message">{{model.message}}</div>
+
+</div>

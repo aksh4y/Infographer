@@ -58,7 +58,7 @@
             PageService
                 .createPage(vm.websiteId, newPage)
                 .success(function() {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                    $location.url("/user/"+vm.userId+"/infographic/"+vm.websiteId+"/page");
                 })
                 .error(function () {
                     vm.error = "An error has occurred.";
@@ -105,7 +105,7 @@
             PageService
                 .deletePage(vm.pageId)
                 .success(function () {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                    $location.url("/user/"+vm.userId+"/infographic/"+vm.websiteId+"/page");
                 })
                 .error(function () {
                     vm.error = "An error has occurred";

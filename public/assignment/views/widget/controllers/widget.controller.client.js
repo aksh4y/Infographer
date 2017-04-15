@@ -101,7 +101,7 @@
                         .then(function (response) {
                             var updatedWidgetObject = response;
                             if(updatedWidgetObject){
-                                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                                $location.url("/user/"+vm.userId+"/infographic/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
                             }
                         }, function (err) {
                             vm.error = "Update error!";
@@ -118,10 +118,10 @@
             WidgetService
                 .deleteWidget(vm.widgetId)
                 .success(function(){
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                    $location.url("/user/"+vm.userId+"/infographic/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
                 })
                 .error(function () {
-                    vm.error = "Unable to delete website";
+                    vm.error = "Unable to delete infographic";
                 });
 
         }
@@ -130,7 +130,7 @@
             WidgetService
                 .updateWidget(vm.widgetId, _widget)
                 .success(function () {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                    $location.url("/user/"+vm.userId+"/infographic/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
                 })
                 .error(function () {
                     vm.error = "Unable to update widget";
@@ -161,7 +161,7 @@
             WidgetService
                 .createWidget(vm.pageId, newWidget)
                 .success(function (widget) {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id+"?new=yes");
+                    $location.url("/user/"+vm.userId+"/infographic/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id+"?new=yes");
                 })
                 .error(function () {
                     vm.error = "Could not create widget";
@@ -178,7 +178,7 @@
             WidgetService
                 .createWidget(vm.pageId, newWidget)
                 .success(function (widget) {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id+"?new=yes");
+                    $location.url("/user/"+vm.userId+"/infographic/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id+"?new=yes");
                 })
                 .error(function () {
                    vm.error = "Could not create widget";
@@ -194,7 +194,7 @@
             WidgetService
                 .createWidget(vm.pageId, newWidget)
                 .success(function (widget) {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id+"?new=yes");
+                    $location.url("/user/"+vm.userId+"/infographic/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id+"?new=yes");
                 })
                 .error(function () {
                     vm.error = "Could not create widget";
@@ -212,7 +212,7 @@
             WidgetService
                 .createWidget(vm.pageId, newWidget)
                 .success(function (widget) {
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id+"?new=yes");
+                    $location.url("/user/"+vm.userId+"/infographic/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id+"?new=yes");
                 })
                 .error(function () {
                     vm.error = "Could not create widget";

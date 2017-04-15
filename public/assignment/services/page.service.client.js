@@ -18,7 +18,7 @@
         return api;
 
         function findAllPagesForWebsite(websiteId) {
-            return $http.get("/api/website/" + websiteId + "/page");
+            return $http.get("/api/infographic/" + websiteId + "/page");
         }
 
 
@@ -30,7 +30,7 @@
         }
 
         function createPage(websiteId, page) {
-            return $http.post("/api/website/" + websiteId + "/page", page);
+            return $http.post("/api/infographic/" + websiteId + "/page", page);
         }
 
         function updatePage(pageId, page) {

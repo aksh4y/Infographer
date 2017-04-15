@@ -1,20 +1,26 @@
+/**
+ * Created by Akshay on 4/14/2017.
+ */
 (function() {
     angular
         .module("WebAppMaker")
-        .factory("WebsiteService", WebsiteService);
-    
-    function WebsiteService($http) {
+        .factory("InfographicService", InfographicService);
+
+    function InfographicService($http) {
+
+        console.log("inside client side service");
 
         var api = {
-            "createWebsite": createWebsite,
+            /*"createWebsite": createWebsite,
             "findWebsiteById": findWebsiteById,
             "findAllWebsitesForUser": findAllWebsitesForUser,
             "deleteWebsite": deleteWebsite,
-            "updateWebsite": updateWebsite
+            "updateWebsite": updateWebsite*/
+            "findAllInfographicsForUser": findAllInfographicsForUser
         };
         return api;
 
-        function findAllWebsitesForUser(userId) {
+        /*function findAllWebsitesForUser(userId) {
             return $http.get("/api/user/" + userId + "/infographic");
         }
 
@@ -31,6 +37,12 @@
 
         function updateWebsite(websiteId, website) {
             return $http.put("/api/infographic/" + websiteId, website);
+        }*/
+        function findAllInfographicsForUser(userId) {
+            return $http.get("/api/infographic/" + userId)
+                .then(function (response) {
+                    return response.data;
+                });
         }
     }
 })();

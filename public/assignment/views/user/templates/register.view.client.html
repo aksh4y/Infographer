@@ -1,77 +1,29 @@
-<script>
-    jQuery(document).ready(function($) {
-        //  var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-        <!-- another regex filter you can use -->
-        var testEmail =    /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
-        jQuery('input#reg-email').bind('input propertychange', function() {
-            if (testEmail.test(jQuery(this).val()))
-            {
-                jQuery(this).css({ 'border':'3px solid green'});
-                jQuery('button#register').prop("disabled",false);
-            } else
-            {
-                jQuery(this).css({ 'border':'3px solid red'});
-                jQuery('button#register').prop("disabled",true);
-            }
-        });
-    });
-</script>
-<div class="container">
-    <h1>Register</h1>
-    <label for="reg-username">Username</label>
-    <input ng-model="user.username"
-           id="reg-username"
-           type="text"
-           class="form-control"
-           placeholder="Username"/>
-
-    <label for="reg-firstname">First Name</label>
-    <input ng-model="user.firstName"
-           id="reg-firstname"
-           type="text"
-           class="form-control"
-           placeholder="First Name"/>
-
-    <label for="reg-lastname">Last Name</label>
-    <input ng-model="user.lastName"
-           id="reg-lastname"
-           type="text"
-           class="form-control"
-           placeholder="Last Name"/>
-
-    <label for="reg-email">Email</label>
-    <input ng-model="user.email"
-           id="reg-email"
-           type="email"
-           class="form-control"
-           placeholder="Email"/>
-
-    <label for="reg-phone">Phone</label>
-    <input ng-model="user.phone"
-           id="reg-phone"
-           type="number"
-           class="form-control"
-           placeholder="Phone"/>
-
-    <label for="reg-password">Password</label>
-    <input ng-model="user.password"
-           id="reg-password"
-           type="password"
-           class="form-control"
-           placeholder="Password"/>
-
-    <label for="reg-verify-password">Verify Password</label>
-    <input ng-model="user.verifypassword"
-           id="reg-verify-password"
-           type="password"
-           class="form-control"
-           placeholder="Verify password"/>
-    <a class="btn btn-primary btn-block" id="register"
-       ng-click="model.register(user)">Register</a>
-    <a class="btn btn-danger  btn-block"
-       href="#/login">Cancel</a>
-    <br />
-    <div class="alert alert-danger" ng-show="model.error">{{model.error}}</div>
-    <div class="alert alert-success" ng-show="model.message">{{model.message}}</div>
-
+<div class="container text-center">
+    <div class="header" id="infoTitle">
+        <img class="logo" src="../../../../assets/Logo.png"/>
+    </div>
+    <div class="col-sm-12 header unselectable">
+        Present data better
+    </div>
+    <br/>
+    <h4>One click sign up</h4>
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4">
+        <a href="/auth/google" class="btn btn-danger btn-block">
+            <span class="fa fa-google-plus"></span>
+            Sign up with Google
+        </a>
+        <a href="/auth/facebook" class="btn btn-primary btn-block">
+            <span class="fa fa-facebook"></span>
+            Sign up with Facebook
+        </a>
+        <h5>Or</h5>
+        <a class="btn btn-success btn-block" id="register"
+           href="#/register-local">
+            <span class="fa fa-envelope-o"></span>
+            Sign up with Email</a>
+        <br/>
+        <a href="#/login">Existing user? Login here</a>
+    </div>
+    <div class="col-xs-4"></div>
 </div>

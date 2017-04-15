@@ -1,0 +1,270 @@
+<script src="../../../../js/mouse.js"></script>
+<script src="../../../../js/dropbox.js"></script>
+<script>
+   /* $('#account').on('click', function () {
+        var element = document.getElementById('account');
+        if(element.classList.contains('open'))
+            $('#account').removeClass('open'); // Closes the dropdown
+        else
+            $('#account').addClass('open'); // Opens the dropdown
+    });*/
+
+    function toggleSidepanel(ele) {
+        $(this).addClass('active');
+        $("#spy2 > div").hide();
+        $(ele).show();
+    }
+
+    // Highlight widget
+    $('#page-content-wrapper').on('mousedown', '.widget', function() {
+        $(".widget").removeClass('highlight');
+        $(this).addClass('highlight');
+
+    });
+
+    // Hide all visual aids
+    function hideAll() {
+        //$('#sidebar-wrapper2').hide();
+        /*var element = document.getElementById('account');
+        if(element.classList.contains('open'))
+            $('#account').removeClass('open'); // Opens the dropdown*/
+        removeHighlights();
+    }
+
+    // Remove highlights
+    function removeHighlights() {
+        $("#canvas > div").removeClass('highlight');
+    }
+
+
+    $( function() {
+        $(".as-img").on('click', function() {
+            $(this)
+                .clone()
+                .addClass('widget')
+                .appendTo('#canvas')
+                .draggable();
+        });
+    });
+
+    // Prevent enter key
+    $('#canvas').on('keydown', function(e) {
+        //Prevent insertion of a return
+        if (e.which == 13 && e.shiftKey == false) {
+            return false;
+        }
+    });
+
+    // Remove highlights when clicked outside of canvas
+    $("body").on('click', function (evt) {
+        /*if(evt.target.id == "menu")
+            return;
+        hideAll();*/
+        var container = $("#canvas");
+        if (!container.is(evt.target) // if the target of the click isn't the container...
+            && container.has(evt.target).length === 0) // ... nor a descendant of the container
+        {
+            hideAll();
+        }
+    });
+
+
+
+    $("#canvas > div").draggable();
+    $("#canvas")
+        .on('click', '.row', function(){
+            if ( $(this).is('.ui-draggable-dragging') ) {
+                return;
+            }
+            $(this).draggable( "option", "disabled", true );
+            $(this).attr('contenteditable','true');
+        })
+        .on('blur', '.row', function(){
+            $(this).draggable( 'option', 'disabled', false);
+            $(this).attr('contenteditable','false');
+        });
+
+    /*$( "#canvas > div" ).on('click', function() {
+     $('#sidebar-wrapper2').show();
+     });*/
+
+    $('#canvas > div').on('drag', function() {
+        $('#x-pos').val($(this).offset().top);
+        $('#y-pos').val($(this).offset().left);
+        $('#width').val($(this).width());
+        $('#height').val($(this).height());
+        $('#element').val($(this).attr('id'));
+    });
+
+
+    $(function() {
+        $('#cp4').colorpicker().on('changeColor', function(e) {
+            $('#page-content-wrapper').css('background-color', e.color.toString(
+                'rgba'));
+        });
+    });
+</script>
+
+<ul class='custom-menu'>
+    <li data-action = "delete">Delete</li>
+</ul>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-right">
+                <a href="#/" class="navbar-link">
+                      <span class="glyphicon glyphicon-log-out"> Logout</span>
+                </a>
+                <!--<div id="account" class="dropdown">
+                    <a id="menu" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </div>-->
+            </div>
+            <!--<div class="navbar-text pull-left">
+                <a href="#/user/{{model.userIinfographicsite" class="navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>-->
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    <span class="glyphicon glyphicon-print" stlyle="padding-right:10px"
+                          onClick="printCanvas()"> Print</span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    <span class="glyphicon glyphicon-download" stlyle="padding-right:10px"
+                          onClick="downloadInfographic()"> Download</span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    <span class="glyphicon glyphicon-floppy-disk" stlyle="padding-right:10px"
+                          onClick="generateThumbnail()"> Save</span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    <span id="dbSaver"></span>
+                </a>
+            </div>
+            <div class="navbar-brand fb-share-button"
+                 data-href="http://4kshay.tech"
+                 data-layout="button"
+            data-size="small">
+            </div>
+
+        </div>
+    </div>
+
+</nav>
+
+<div class="container-fluid">
+    <div id="wrapper" data-spy="scroll" data-target="#spy" class="">
+        <div class="row">
+            <div class="col-md-2">
+                <!-- Sidebar -->
+                <div id="sidebar-wrapper" class="">
+                    <nav id="spy">
+                        <ul class="sidebar-nav nav">
+                            <li>
+                                <img class="logo" src="../../../../assets/Logo.png" />
+                            </li>
+                            <li class="sidebar-brand active"> <a href="#home" class="">
+                                <span class="fa fa-home solo">Dashboard</span></a>
+                            </li>
+                            <li class=""> <a onclick="toggleSidepanel('#graphics')">
+                                <span class="fa fa-image solo">Graphics</span>
+                            </a>
+
+                            </li>
+                            <li class=""> <a onclick="toggleSidepanel('#bg')" data-scroll="" class="">
+                                <span class="fa fa-th solo">Background</span>
+                            </a>
+
+                            </li>
+                            <li class=""> <a onclick="toggleSidepanel('#txt')" data-scroll="" class="">
+                                <span class="fa fa-text-width solo">Text</span>
+                            </a>
+
+                            </li>
+                            <!--<li class=""> <a href="#anch4" data-scroll="" class="">
+                                <span class="fa fa-bars solo">Widgets</span>
+                            </a>
+
+                            </li>-->
+                            <li>
+                                <svg id="star" class="as-img" width="150" height="150">
+                                    <circle cx="70" cy="70" r="40" fill="yellow" />
+                                </svg>
+                                <!--<img id="star" class="as-img" src="../../../../assets/shapes/star.svg" width="200px" height="200px" stycomponentsound:#FFFFFF"/>-->
+                            </li>
+
+                        </ul>
+
+                    </nav>
+                </div>
+            </div>
+            <!-- Page content -->
+            <div class="col-md-8 col-sm-12">
+                <div class="header" id="infoTitle">Web Dev Infographic</div>
+                <div id="page-content-wrapper" class="">
+                    <div id="canvas" class="page-content inset">
+                        <!--<div class="row widget">
+                            <div class="jumbotron text-center">
+                                <h1 class="">Hello Beautiful!</h1>
+
+                                <p class="">This is a sidebar navigation responsive template built off of Bootstrap
+                                    3.0 and simple sidebar template. It includes anchors, scroll spy, smooth
+                                    scroll, and Awesome icon fonts.</p>
+                            </div>
+                        </div>
+                        <div class="row widget">
+                            <div class="col-md-12 well">
+                                <legend id="anch1" class="">Anchor 1</legend>
+                                <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies,
+                                    metus eget fringilla fermentum, sem justo pulvinar tellus, ac varius neque
+                                    ante eget mi. Donecus eu, auctor laoreet neque. Etiam eu
+                                    tortor rutrum, rutrum mauris sit amet, hendrerit augue. Sed ut tincidunt
+                                    nisi. Nam consectetur velit ac pharetra venenatis.</p>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <!-- End of canvas -->
+
+            <div class="col-md-2">
+                <!-- Sidebar -->
+                <div id="sidebar-wrapper2" class="">
+                    <nav id="spy2">
+                        <ul class="sidebar-nav nav">
+                            <li class="sidebar-brand active text-center">
+                                <span class="fa fa-pencil-square-o solo">Edit</span>
+                            </li>
+                        </ul>
+                        <div id="bg" class="editor">
+                            <ng-include src="'views/components/templates/editors/background-edit.view.client.html'">
+                        </div>
+                        <div id="txt" class="editor">
+                            <ng-include src="'views/components/templates/text.select.client.html'">
+                        </div>
+                        <!-- <div id="graphics" class="editor">
+                             <ng-include src="'views/widget/templates/editors/widget-IMAGE-editor.view.client.html'">
+                         </div>-->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
