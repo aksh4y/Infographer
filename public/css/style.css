@@ -210,6 +210,11 @@ li>a {
     margin: 15px;
 }
 
+.thumbnail {
+    width: 248px;
+    height: 350px;
+}
+
 #delete-btn {
     margin-bottom: 70px;
 }
