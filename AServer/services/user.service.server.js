@@ -48,7 +48,7 @@ module.exports = function (app, userModel) {
     passport.use(new FacebookStrategy({
             clientID: "1670685349901119",
             clientSecret: "c65c29c8cb6023b05b9bc83ace3fcf24",
-            callbackURL: "http://infographer.herokuapp.com/facebook/oauth/callback"
+            callbackURL: "/facebook/oauth/callback"
         }, facebookStrategy));
 
     function facebookStrategy(token, refreshToken, profile, done) {
@@ -96,7 +96,7 @@ module.exports = function (app, userModel) {
     var googleConfig = {
         clientID     : "444599312528-aukb1g3el1pi7inh63l8kf8cvh7i8amj.apps.googleusercontent.com",
         clientSecret : "5Dg9wFKRtTkd-njtphTy3QyB",
-        callbackURL  : "http://infographer.herokuapp.com/google/oauth/callback"
+        callbackURL  : "/google/oauth/callback"
     };
 
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
