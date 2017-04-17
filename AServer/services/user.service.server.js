@@ -32,57 +32,69 @@ module.exports = function (app, userModel) {
     app.post('/api/logout', logout);
     app.get('/api/loggedIn', loggedIn);
     app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-    app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
+    app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
     app.get('/google/oauth/callback',
         passport.authenticate('google', {
             successRedirect: '/index.html#/profile',
             failureRedirect: '/index.html#/login'
         }));
-    app.get('/facebook/oauth/callback',
+    /*app.get('/aauth/facebook/callback',
         passport.authenticate('facebook', {
             successRedirect: '/index.html#/profile',
             failureRedirect: '/index.html#/login'
 
-    }));
+    }));*/
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', { failureRedirect: '#/login' }),
+        function(req, res) {
+            // Successful authentication, redirect home.
+            res.redirect('#/profile');
+        });
+
+
 
     passport.use(new FacebookStrategy({
-            clientID: "1670685349901119",
-            clientSecret: "c65c29c8cb6023b05b9bc83ace3fcf24",
-            callbackURL: "/facebook/oauth/callback"
+            clientID: "1670289183274069",
+            clientSecret: "44a4decdb780b64a950996620e0c17b7",
+            callbackURL: "http://localhost:3000/auth/facebook/callback",
+            profileFields: ['id', 'displayName', 'email'],
+            enableProof: true
         }, facebookStrategy));
 
-    function facebookStrategy(token, refreshToken, profile, done) {
+    function facebookStrategy(token, refreshToken, profile, cb) {
+       // console.log(profile);
         userModel
             .findUserByFacebookId(profile.id)
             .then(
                 function(user) {
                     if(user) {
-                        return done(null, user);
+                        return cb(null, user);
                     } else {
                         var newFacebookUser = {
-                            username:  profile.name.givenName + "." + profile.name.familyName,
-                            firstName: profile.name.givenName,
-                            lastName:  profile.name.familyName,
+                            username:  profile.displayName.trim(),
+                            firstName: profile.displayName.substring(0, profile.displayName.indexOf('')),
+                            lastName:  profile.displayName.substring(profile.displayName.indexOf('')+1),
                             email:     profile.emails[0].value,
                             facebook: {
                                 id:    profile.id,
                                 token: token
                             }
                         };
+                        console.log(newFacebookUser);
                         return userModel.createUser(newFacebookUser);
                     }
                 },
                 function(err) {
                     console.error(err);
-                    if (err) { return done(err); }
+                    if (err) { return cb(err); }
                 }
             )
             .then(
                 function(user){
-                    return done(null, user);
+                    return cb(null, user);
                 },
                 function(err){
-                    if (err) { return done(err); }
+                    if (err) { return cb(err); }
                 }
             );
         }
