@@ -14,6 +14,10 @@ module.exports = function () {
             id: String,
             token: String
         },
+        facebook: {
+            id: String,
+            token: String
+        },
         infographics: [{type: mongoose.Schema.Types.ObjectId, ref:'InfographicModel'}],
         role: {type:String, enum:['USER','ADMIN'], required: true, default: 'USER'},
         dateCreated: {type:Date, default: Date.now()}

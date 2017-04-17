@@ -56,7 +56,7 @@ module.exports = function (app, userModel) {
     passport.use(new FacebookStrategy({
             clientID: "1670289183274069",
             clientSecret: "44a4decdb780b64a950996620e0c17b7",
-            callbackURL: "http://localhost:3000/auth/facebook/callback",
+            callbackURL: "/auth/facebook/callback",
             profileFields: ['id', 'displayName', 'email'],
             enableProof: true
         }, facebookStrategy));
@@ -71,9 +71,9 @@ module.exports = function (app, userModel) {
                         return cb(null, user);
                     } else {
                         var newFacebookUser = {
-                            username:  profile.displayName.trim(),
-                            firstName: profile.displayName.substring(0, profile.displayName.indexOf('')),
-                            lastName:  profile.displayName.substring(profile.displayName.indexOf('')+1),
+                            username:  profile.displayName.replace(' ', '.').toLowerCase(),
+                            firstName: profile.displayName.substring(0, profile.displayName.indexOf(' ')),
+                            lastName:  profile.displayName.substring(profile.displayName.indexOf(' ')+1),
                             email:     profile.emails[0].value,
                             facebook: {
                                 id:    profile.id,
