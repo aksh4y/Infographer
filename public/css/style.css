@@ -1,7 +1,7 @@
 /*This stylesheet contains some custom class rather than Bootstrap*/
 
 
- body { 
+/* body {
 	-webkit-background-size: cover;
      background:
              linear-gradient(
@@ -12,7 +12,7 @@
 	 -moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-}
+}*/
 
  .as-heading {
 	 text-align: center;
