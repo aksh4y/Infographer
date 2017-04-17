@@ -10,6 +10,8 @@
     });*/
 
     function toggleSidepanel(ele) {
+        $("#sidebar-wrapper2").show();
+        $("#spy > ul > li").removeClass('active');
         $(this).addClass('active');
         $("#spy2 > div").hide();
         $(ele).show();
@@ -34,6 +36,7 @@
     // Remove highlights
     function removeHighlights() {
         $("#canvas > div").removeClass('highlight');
+        $("#canvas > svg").removeClass('highlight');
     }
 
 
@@ -113,7 +116,7 @@
     <div class="row container-fluid">
         <div class="col-xs-12">
             <div class="navbar-text pull-right">
-                <a href="#/" class="navbar-link">
+                <a ng-click="model.logout()" class="navbar-link">
                       <span class="glyphicon glyphicon-log-out"> Logout</span>
                 </a>
                 <!--<div id="account" class="dropdown">
@@ -129,11 +132,6 @@
                         <li><a href="#">One more separated link</a></li>
                     </ul>
                 </div>-->
-            </div>
-            <div class="navbar-text pull-left">
-                <a href="#/dashboard" class="navbar-link">
-                    <span class="glyphicon glyphicon-chevron-left"> Dashboard</span>
-                </a>
             </div>
             <div class="navbar-text">
                 <a class="navbar-link">
@@ -163,14 +161,16 @@
                             <li>
                                 <img class="logo" src="../../../../assets/Logo.png" />
                             </li>
-                            <li class="sidebar-brand active"> <a href="#home" class="">
+                            <li> <a href="#/dashboard">
                                 <span class="fa fa-home solo">Dashboard</span></a>
                             </li>
-                            <li class=""> <a onclick="toggleSidepanel('#graphics')">
+                            <li> <a onclick="toggleSidepanel('#graphics')">
                                 <span class="fa fa-image solo">Graphics</span>
                             </a>
-
                             </li>
+                            <li class=""> <a onclick="toggleSidepanel('#shapes')">
+                                <span class="fa fa-image solo">Shapes</span>
+                            </a>
                             <li class=""> <a onclick="toggleSidepanel('#bg')" data-scroll="" class="">
                                 <span class="fa fa-th solo">Background</span>
                             </a>
@@ -200,13 +200,15 @@
             </div>
             <!-- Page content -->
             <div class="col-md-8 col-sm-12">
+                <!-- Alerts -->
                 <div class="alert alert-danger alert-dismissable fade in" ng-show="model.error">
                     <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     {{model.error}}</div>
                 <div class="alert alert-success alert-dismissable fade in" ng-show="model.message">
                     <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     {{model.message}}</div>
-                <div class="header" id="infoTitle" contenteditable="true">Enter Infographic Title</div>
+                <!-- End of Alerts -->
+                <div class="header" id="infoTitle" contenteditable="true">{{model.infographic.name}}</div>
                 <div id="page-content-wrapper" class="">
                     <div id="canvas" class="page-content inset">
                         <!--<div class="row widget">
@@ -235,7 +237,7 @@
 
             <div class="col-md-2">
                 <!-- Sidebar -->
-                <div id="sidebar-wrapper2" class="">
+                <div id="sidebar-wrapper2" style="display:none">
                     <nav id="spy2">
                         <ul class="sidebar-nav nav">
                             <li class="sidebar-brand active text-center">
@@ -246,11 +248,14 @@
                             <ng-include src="'views/components/templates/editors/background-edit.view.client.html'">
                         </div>
                         <div id="txt" class="editor">
-                            <ng-include src="'views/components/templates/text.select.client.html'">
+                            <ng-include src="'views/components/templates/text-select.view.client.html'">
                         </div>
-                        <!-- <div id="graphics" class="editor">
+                         <div id="graphics" class="editor">
                              <ng-include src="'views/widget/templates/editors/widget-IMAGE-editor.view.client.html'">
-                         </div>-->
+                         </div>
+                        <div id="shapes" class="editor">
+                            <ng-include src="'views/components/templates/shapes-select.view.client.html'">
+                        </div>
                     </nav>
                 </div>
             </div>

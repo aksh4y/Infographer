@@ -27,8 +27,11 @@
         <div ng-repeat="infographic in model.infographics" style="float:left; padding-right:10px">
             <div class="infograph-container">
             <img class="infograph-image" ng-src="{{infographic.url}}" width="300px" height="424px"/>
-            <div class="middle">
+            <div class="dashboard-view">
                 <a href="#/viewer/{{infographic._id}}" class="infograph-text">View</a>
+            </div>
+                <div class="dashboard-edit hidden-xs">
+                <a href="#/editor/{{infographic._id}}" class="infograph-text">Edit</a>
             </div>
             <br/>
         </div>

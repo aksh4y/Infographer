@@ -102,7 +102,6 @@ module.exports = function (app, userModel) {
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 
     function googleStrategy(token, refreshToken, profile, done) {
-        // console.log(profile);
         userModel
             .findUserByGoogleId(profile.id)
             .then(

@@ -274,11 +274,21 @@ body {
     position: relative;
 }
 
-.middle {
+.dashboard-edit {
     transition: .5s ease;
     opacity: 0;
     position: absolute;
-    top: 50%;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+}
+
+.dashboard-view {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%)
@@ -288,7 +298,11 @@ body {
     opacity: 0.5;
 }
 
-.infograph-container:hover .middle {
+.infograph-container:hover .dashboard-edit {
+    opacity: 1;
+}
+
+.infograph-container:hover .dashboard-view {
     opacity: 1;
 }
 

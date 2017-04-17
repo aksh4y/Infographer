@@ -20,7 +20,7 @@
     <div class="row container-fluid">
         <div class="col-xs-12">
             <div class="navbar-text pull-right">
-                <a href="#/" class="navbar-link">
+                <a ng-click="model.logout()" class="navbar-link">
                     <span class="glyphicon glyphicon-log-out"> Logout</span>
                 </a>
             </div>
@@ -66,7 +66,7 @@
             <div class="col-md-8 col-sm-12">
                 <div class="header" id="infoTitle">{{model.infographic.name}}</div>
                 <div id="page-content-wrapper">
-                    <img ng-src="{{model.infographic.background_url}}" ng-show="model.infographic.background_url != 'none'" />
+                    <img id="canvas-bg" ng-src="{{model.infographic.background_url}}" ng-show="model.infographic.background_url != 'none'" />
                 </div>
             </div>
             <div class="col-md-2"></div>

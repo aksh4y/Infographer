@@ -13,7 +13,6 @@ module.exports = function (app, infographicModel) {
 
     function findInfographicById(req, res) {
         var infographId = req.params['inid'];
-        console.log(infographId);
         infographicModel
             .findInfographicById(infographId)
             .then(function (infograph) {
@@ -35,7 +34,6 @@ module.exports = function (app, infographicModel) {
     }
 
     function createInfographic(req, res) {
-        console.log("reached service");
         var userId = req.params.userId;
         infographicModel
             .createInfographicForUser(userId)
@@ -61,17 +59,14 @@ module.exports = function (app, infographicModel) {
 
 
    function updateInfographic(req, res) {
-       console.log("in service server");
        var infographicId = req.params['inid'];
        infographicModel
             .findInfographicById(infographicId)
             .then(function (response) {
-                console.log("in server found for update");
                 var newInfographic = req.body;
                 infographicModel
                     .updateInfographic(infographicId, newInfographic)
                     .then(function (response) {
-                        console.log("apparently updated");
                             res.json(response);
                     }, function () {
                         res.sendStatus(500);

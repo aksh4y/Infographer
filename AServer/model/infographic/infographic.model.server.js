@@ -25,10 +25,10 @@ module.exports = function () {
     return api;
 
     function createInfographicForUser(userId) {
-        console.log("service creating inf for user");
         var deferred = q.defer();
         var infographic = {
-            _user: userId
+            _user: userId,
+            name: "<Enter a title>"
         };
 
         infographicModel.create(infographic, function (err, i) {
@@ -36,7 +36,6 @@ module.exports = function () {
                 console.log("Error:"+err);
                 deferred.reject(err);
             } else {
-                console.log("apparently created");
                 addInfographic(userId, i);
                 deferred.resolve(i);
             }
@@ -60,7 +59,6 @@ module.exports = function () {
     }
 
     function findAllInfographicsForUser(userId) {
-        console.log("reached model to find");
         var d = q.defer();
         infographicModel
             .find({"_user": userId}, function (err, infographics) {
@@ -74,14 +72,12 @@ module.exports = function () {
     }
 
     function findInfographicById(infographicId) {
-        console.log(infographicId);
         var d = q.defer();
         infographicModel
             .find({"_id": infographicId}, function (err, infographic) {
                 if (err) {
                     d.reject(err);
                 } else {
-                    console.log("found in model");
                     d.resolve(infographic);
                 }
             });

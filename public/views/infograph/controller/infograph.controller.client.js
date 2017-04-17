@@ -9,11 +9,11 @@
         .controller("InfographEditController", InfographEditController)
         .controller("InfographViewController", InfographViewController);
 
-    function InfographViewController(currentUser, $routeParams, InfographicService, $location) {
+    function InfographViewController(currentUser, UserService, $routeParams, InfographicService, $location) {
         var vm = this;
         vm.user = currentUser;
         vm.infographId = $routeParams.inid;
-
+        vm.logout = logout;
         function init() {
             InfographicService
                 .findInfographicById(vm.infographId)
@@ -26,9 +26,17 @@
                 });
         }
         init();
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (reponse) {
+                    $location.url('/login');
+                });
+        }
     }
 
-    function InfographNewController(currentUser, $routeParams, InfographicService, $location) {
+    function InfographNewController(currentUser, InfographicService, $location) {
         var vm = this;
         vm.user = currentUser;
         function init() {
@@ -44,14 +52,29 @@
         init();
     }
 
-    function InfographEditController(currentUser, $routeParams, InfographicService, $location) {
+    function InfographEditController(currentUser, $routeParams, UserService, InfographicService, $location) {
         var vm = this;
         vm.user = currentUser;
         vm.infographId = $routeParams.inid;
         vm.updateInfograph = updateInfograph;
         vm.deleteInfograph = deleteInfograph;
+        vm.logout = logout;
+        vm.infographic = {};
+        function init() {
+            InfographicService
+                .findInfographicById(vm.infographId)
+                .success(function (response) {
+                    console.log(response);
+                    vm.infographic = response[0];
+                    $('#page-content-wrapper').css('background-image', 'url(' + vm.infographic.background_url + ')');
+                    $('#page-content-wrapper').css('background-color', vm.infographic.background_color);
+                })
+                .error(function () {
+                    vm.error("An error has occurred!");
+                });
 
-        function init() {}
+
+        }
         init();
 
         function deleteInfograph() {
@@ -64,6 +87,14 @@
                     vm.error = "An error has occurred";
                 });
         }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (reponse) {
+                    $location.url('/login');
+                });
+        };
 
         function updateInfograph (infograph) {
 
