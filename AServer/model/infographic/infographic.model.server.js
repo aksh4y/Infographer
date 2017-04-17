@@ -24,15 +24,21 @@ module.exports = function () {
 
     return api;
 
-    function createInfographicForUser(userId, infographic) {
+    function createInfographicForUser(userId) {
+        console.log("service creating inf for user");
         var deferred = q.defer();
-        infographic._user = userId;
-        infographicModel.create(infographic, function (err, w) {
+        var infographic = {
+            _user: userId
+        };
+
+        infographicModel.create(infographic, function (err, i) {
             if (err) {
+                console.log("Error:"+err);
                 deferred.reject(err);
             } else {
-                addInfographic(userId, w);
-                deferred.resolve(w);
+                console.log("apparently created");
+                addInfographic(userId, i);
+                deferred.resolve(i);
             }
         });
 

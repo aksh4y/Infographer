@@ -6,11 +6,10 @@ module.exports = function() {
     var mongoose = require("mongoose");
     var InfographicSchema = mongoose.Schema({
         _user: {type: mongoose.Schema.Types.ObjectId, ref: 'UserModel'},
-        name: {type: String, required: true},
+        name: String,
         background_color: String,
-        background_Url: String,
+        background_url: String,
         url: String,
-        thumb: String,
         widgets: [{type: mongoose.Schema.Types.ObjectId, ref:'WidgetModel'}],
         dateCreated: {type: Date, default: Date.now()}
     }, {collection: "infographer.infographics"});

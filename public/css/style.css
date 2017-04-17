@@ -270,8 +270,41 @@ body {
 }
 
 
-.infograph:hover {
-    background-color: rgba(100, 100, 100, 0.9);
+.infograph-container {
+    position: relative;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+}
+
+.infograph-container:hover .infograph-image {
+    opacity: 0.5;
+}
+
+.infograph-container:hover .middle {
+    opacity: 1;
+}
+
+.infograph-text {
+    background-color: rgba(76, 175, 80, 0.59);
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+}
+
+.infograph-image {
+    opacity: 1;
+    display: block;
+    transition: .5s ease;
+    backface-visibility: hidden;
 }
 
 .header {

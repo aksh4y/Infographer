@@ -61,7 +61,7 @@
                 controllerAs: "model"
             })*/
             .when("/viewer/:inid", {
-                templateUrl: 'views/infograph/templates/infograph.view.client.html',
+                templateUrl: 'views/infograph/templates/infograph-viewer.view.client.html',
                 controller: "InfographViewController",
                 controllerAs: "model",
                 resolve: {
@@ -69,20 +69,20 @@
                 }
             })
             .when("/creator", {
-                templateUrl: 'views/infograph/templates/infograph.new.client.html',
+                templateUrl: 'views/infograph/templates/infograph-edit.view.client.html',
                 controller: "InfographNewController",
                 controllerAs: "model",
                 resolve: {
                     currentUser: checkLogin
                 }
             })
-            .when("/editor", {
-                templateUrl: 'views/infograph/templates/infograph.edit.view.client.html'/*,
+            .when("/editor/:inid", {
+                templateUrl: 'views/infograph/templates/infograph-edit.view.client.html',
                 controller: "InfographEditController",
                 controllerAs: "model",
                 resolve: {
                     currentUser: checkLogin
-                }*/
+                }
             })
             .otherwise({
                 redirectTo: "/"

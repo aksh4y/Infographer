@@ -3,24 +3,13 @@
  */
 
 module.exports = function (app, infographicModel) {
-    /*app.post("/api/user/:userId/infographic", createInfographic);
 
-
-    app.put("/api/infographic/:websiteId", updateInfographic);
-    app.delete("/api/infographic/:websiteId", deleteInfographic);*/
-
+    app.put("/api/infographic/:inid", updateInfographic);
+    app.delete("/api/infographic/:inid", deleteInfographic);
     app.get("/api/infographic/:userId", findAllInfographicsForUser);
     app.get("/api/viewer/:inid", findInfographicById);
+    app.post("/api/creator/:userId", createInfographic);
 
-
-    /*var websites = [
-        { "_id": "123", "name": "Facebook", "developerId": "456", "description": "Lorem", created: new Date()} ,
-        { "_id": "234", "name": "Twitter",  "developerId": "456", "description": "Lorem", created: new Date() },
-        { "_id": "456", "name": "Gizmodo", "developerId": "456", "description": "Lorem", created: new Date() },
-        { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem", created: new Date() },
-        { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem", created: new Date() },
-        { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem", created: new Date() }
-    ];*/
 
     function findInfographicById(req, res) {
         var infographId = req.params['inid'];
@@ -35,24 +24,33 @@ module.exports = function (app, infographicModel) {
     }
 
     function findAllInfographicsForUser(req, res){
-        console.log("reached service");
         var userId = req.params['userId'];
-        console.log("got the userid:"+userId);
         infographicModel
             .findAllInfographicsForUser(userId)
             .then(function (infographics) {
                 res.json(infographics);
             }, function(err) {
-                console.log("dammit");
                 res.sendStatus(404).send(err);
             });
     }
 
+    function createInfographic(req, res) {
+        console.log("reached service");
+        var userId = req.params.userId;
+        infographicModel
+            .createInfographicForUser(userId)
+            .then(function (infographic) {
+                    res.json(infographic);
+                },
+                function () {
+                    res.sendStatus(500);
+                });
+    }
 
-   /* function deleteWebsite(req, res) {
-        var websiteId = req.params.websiteId;
-        websiteModel
-            .deleteWebsite(websiteId)
+    function deleteInfographic(req, res) {
+        var infographicId = req.params.inid;
+        infographicModel
+            .deleteInfographic(infographicId)
             .then(function () {
                 res.sendStatus(200);
             },function () {
@@ -60,28 +58,20 @@ module.exports = function (app, infographicModel) {
             });
     }
 
-    function createWebsite(req, res) {
-        var userId = req.params.userId;
-        var newWebsite = req.body;
-        websiteModel
-            .createWebsiteForUser(userId, newWebsite)
-            .then(function (website) {
-                    res.json(website);
-                },
-                function () {
-                    res.sendStatus(500);
-                });
-    }
 
-    function updateWebsite(req, res) {
-        var websiteId = req.params['websiteId'];
-        websiteModel
-            .findWebsiteById(websiteId)
+
+   function updateInfographic(req, res) {
+       console.log("in service server");
+       var infographicId = req.params['inid'];
+       infographicModel
+            .findInfographicById(infographicId)
             .then(function (response) {
-                var newWebsite = req.body;
-                websiteModel
-                    .updateWebsite(websiteId, newWebsite)
+                console.log("in server found for update");
+                var newInfographic = req.body;
+                infographicModel
+                    .updateInfographic(infographicId, newInfographic)
                     .then(function (response) {
+                        console.log("apparently updated");
                             res.json(response);
                     }, function () {
                         res.sendStatus(500);
@@ -89,5 +79,5 @@ module.exports = function (app, infographicModel) {
             }, function () {
                 res.sendStatus(404);
             });
-    }*/
+    }
 };

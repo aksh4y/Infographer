@@ -1,13 +1,12 @@
 /**
  * Created by Akshay on 4/14/2017.
  */
+
 var options = {
     files: [
         // You can specify up to 100 files.
-        {'url': 'http://sadarangani-akshay-webdev.herokuapp.com/uploads/b2dea34514ec5f1ba2c8d31fa1081779',
-            'filename': 'Infographic.jpg'}
+        {'url': window.location.href}
     ],
-
     success: function () {
         // Indicate to the user that the files have been saved.
         alert("Success! Files saved to your Dropbox.");

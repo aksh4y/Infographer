@@ -1,5 +1,4 @@
 <script src="../../../js/mouse.js"></script>
-<script src="../../../js/dropbox.js"></script>
 <script src="../../../js/print.js"></script>
 <script>
    /* $('#account').on('click', function () {
@@ -131,40 +130,23 @@
                     </ul>
                 </div>-->
             </div>
-            <!--<div class="navbar-text pull-left">
-                <a href="#/user/{{model.userIinfographicsite" class="navbar-link">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </div>-->
-            <div class="navbar-header">
-                <a class="navbar-brand">
-                    <span class="glyphicon glyphicon-print" stlyle="padding-right:10px"
-                          onClick="printCanvas()"> Print</span>
+            <div class="navbar-text pull-left">
+                <a href="#/dashboard" class="navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left"> Dashboard</span>
                 </a>
             </div>
-            <div class="navbar-header">
-                <a class="navbar-brand">
-                    <span class="glyphicon glyphicon-download" stlyle="padding-right:10px"
-                          onClick="downloadInfographic()"> Download</span>
-                </a>
-            </div>
-            <div class="navbar-header">
-                <a class="navbar-brand">
+            <div class="navbar-text">
+                <a class="navbar-link">
                     <span class="glyphicon glyphicon-floppy-disk" stlyle="padding-right:10px"
-                          onClick="generateThumbnail()"> Save</span>
+                          ng-click="model.updateInfograph()"> Save</span>
                 </a>
             </div>
-            <div class="navbar-header">
-                <a class="navbar-brand">
-                    <span id="dbSaver"></span>
+            <div class="navbar-text">
+                <a class="navbar-link">
+                    <span class="glyphicon glyphicon-trash" stlyle="padding-right:10px"
+                          ng-click="model.deleteInfograph()"> Delete</span>
                 </a>
             </div>
-            <div class="navbar-brand fb-share-button"
-                 data-href="http://4kshay.tech"
-                 data-layout="button"
-            data-size="small">
-            </div>
-
         </div>
     </div>
 
@@ -218,7 +200,13 @@
             </div>
             <!-- Page content -->
             <div class="col-md-8 col-sm-12">
-                <div class="header" id="infoTitle">Web Dev Infographic</div>
+                <div class="alert alert-danger alert-dismissable fade in" ng-show="model.error">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{model.error}}</div>
+                <div class="alert alert-success alert-dismissable fade in" ng-show="model.message">
+                    <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{model.message}}</div>
+                <div class="header" id="infoTitle" contenteditable="true">Enter Infographic Title</div>
                 <div id="page-content-wrapper" class="">
                     <div id="canvas" class="page-content inset">
                         <!--<div class="row widget">

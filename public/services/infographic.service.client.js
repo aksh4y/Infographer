@@ -8,37 +8,35 @@
 
     function InfographicService($http) {
 
-        console.log("inside client side service");
-
         var api = {
-            /*"createWebsite": createWebsite,*/
+            "createInfographic": createInfographic,
             "findInfographicById": findInfographicById,
-            /*"findAllWebsitesForUser": findAllWebsitesForUser,
-            "deleteWebsite": deleteWebsite,
-            "updateWebsite": updateWebsite*/
+            "deleteInfographic": deleteInfographic,
+            "updateInfographic": updateInfographic,
             "findAllInfographicsForUser": findAllInfographicsForUser
         };
         return api;
 
-        /*function findAllWebsitesForUser(userId) {
-            return $http.get("/api/user/" + userId + "/infographic");
-        }*/
 
         function findInfographicById(infographId) {
             return $http.get("/api/viewer/" + infographId);
         }
-        /*
-        function deleteWebsite(websiteId) {
-            return $http.delete("/api/infographic/" + websiteId);
+
+
+        function createInfographic(userId) {
+            return $http.post("/api/creator/"+userId);
         }
 
-        function createWebsite(userId, website) {
-            return $http.post("/api/user/" + userId + "/infographic", website);
+
+        function deleteInfographic(infographicId) {
+            return $http.delete("/api/infographic/" + infographicId);
         }
 
-        function updateWebsite(websiteId, website) {
-            return $http.put("/api/infographic/" + websiteId, website);
-        }*/
+        function updateInfographic(infographicId, infographic) {
+            console.log("In service client");
+            return $http.put("/api/infographic/" + infographicId, infographic);
+        }
+
         function findAllInfographicsForUser(userId) {
             return $http.get("/api/infographic/" + userId)
                 .then(function (response) {

@@ -2,7 +2,14 @@
 <script src="../../../js/dropbox.js"></script>
 <script src="../../../js/print.js"></script>
 <script>
-    $('#page-content-wrapper').append('<img id="bg-img" ng-src="{{model.infographic.url}}" />');
+    /* Facebook share button */
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8&appId=1670289183274069";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 </script>
 
 <ul class='custom-menu'>
@@ -17,30 +24,30 @@
                     <span class="glyphicon glyphicon-log-out"> Logout</span>
                 </a>
             </div>
-            <div class="navbar-header pull-left">
-                <a href="#/profile" class="navbar-brand">
-                    <span class="glyphicon glyphicon-chevron-left">Dashboard</span>
+            <div class="navbar-text pull-left">
+                <a href="#/dashboard" class="navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left"> Dashboard</span>
                 </a>
             </div>
-            <div class="navbar-header">
-                <a class="navbar-brand">
+            <div class="navbar-text">
+                <a class="navbar-link">
                     <span class="glyphicon glyphicon-print" stlyle="padding-right:10px"
                           onClick="printCanvas()"> Print</span>
                 </a>
             </div>
-            <div class="navbar-header">
-                <a class="navbar-brand">
+            <div class="navbar-text">
+                <a class="navbar-link">
                     <span class="glyphicon glyphicon-download" stlyle="padding-right:10px"
                           onClick="downloadInfographic()"> Download</span>
                 </a>
             </div>
-            <div class="navbar-header">
-                <a class="navbar-brand">
+            <div class="navbar-text">
+                <a class="navbar-link">
                     <span id="dbSaver"></span>
                 </a>
             </div>
             <div class="navbar-brand fb-share-button"
-                 data-href="http://4kshay.tech"
+                 data-href={{model.infographic.url}}
                  data-layout="button"
                  data-size="small">
             </div>
@@ -59,6 +66,7 @@
             <div class="col-md-8 col-sm-12">
                 <div class="header" id="infoTitle">{{model.infographic.name}}</div>
                 <div id="page-content-wrapper">
+                    <img ng-src="{{model.infographic.background_url}}" ng-show="model.infographic.background_url != 'none'" />
                 </div>
             </div>
             <div class="col-md-2"></div>
