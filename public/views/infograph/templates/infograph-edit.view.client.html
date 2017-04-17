@@ -54,6 +54,7 @@
     $('#canvas').on('keydown', function(e) {
         //Prevent insertion of a return
         if (e.which == 13 && e.shiftKey == false) {
+            alert("Try pressing Shift + Enter");
             return false;
         }
     });
