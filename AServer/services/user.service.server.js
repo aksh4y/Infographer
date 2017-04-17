@@ -96,7 +96,7 @@ module.exports = function (app, userModel) {
     var googleConfig = {
         clientID     : "444599312528-aukb1g3el1pi7inh63l8kf8cvh7i8amj.apps.googleusercontent.com",
         clientSecret : "5Dg9wFKRtTkd-njtphTy3QyB",
-        callbackURL  : "http://127.0.0.1:3000/google/oauth/callback"
+        callbackURL  : "http://infographer.herokuapp.com/google/oauth/callback"
     };
 
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
