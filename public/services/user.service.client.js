@@ -1,6 +1,6 @@
 (function(){
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .factory('UserService', UserService);
     
     function UserService($http) {
@@ -36,7 +36,7 @@
         }
 
         function isAdmin() {
-            return $http.get('/api/isAdmin')
+            return $http.post('/api/isAdmin')
                 .then(function (response) {
                     return response.data;
                 });

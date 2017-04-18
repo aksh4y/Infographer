@@ -3,7 +3,7 @@
  */
 (function() {
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .controller("LoginController", LoginController)
         .controller("ProfileController", ProfileController)
         .controller("RegisterController", RegisterController);
@@ -26,7 +26,7 @@
                     if(user) {
                         $location.url('/profile')
                     } else {
-                        model.error = 'Sorry cant login'
+                        vm.error = 'Please enter correct usernamd and password'
                     }
                 });
         }

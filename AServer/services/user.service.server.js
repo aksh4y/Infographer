@@ -24,9 +24,9 @@ module.exports = function (app, userModel) {
     app.get("/api/user", findUser);
     app.get("/api/user/:userId", findUserByUserId);
     app.get('/api/user/:username', findUserByUsername);
-    app.get('/api/isAdmin', isAdmin);
+    app.post('/api/isAdmin', isAdmin);
     app.put("/api/user/:userId", updateUser);
-    app.delete("/api/user/:userId", deleteUser);
+    app.delete("/api/user/:userId", unregisterUser);
     app.post("/api/register", register);
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/logout', logout);
@@ -80,12 +80,10 @@ module.exports = function (app, userModel) {
                                 token: token
                             }
                         };
-                        console.log(newFacebookUser);
                         return userModel.createUser(newFacebookUser);
                     }
                 },
                 function(err) {
-                    console.error(err);
                     if (err) { return cb(err); }
                 }
             )
@@ -137,7 +135,6 @@ module.exports = function (app, userModel) {
                     }
                 },
                 function(err) {
-                    console.error(err);
                     if (err) { return done(err); }
                 }
             )
@@ -177,6 +174,18 @@ module.exports = function (app, userModel) {
                         return done(null, false);
                     }
                 });
+    }
+
+    function unregisterUser(req, res) {
+        if(req.user && req.user._id == req.params.userId) {
+            userModel
+                .deleteUser(req.params.userId)
+                .then(function (status) {
+                    res.sendStatus(200);
+                });
+        } else {
+            res.sendStatus(401);
+        }
     }
 
     function register(req, res) {
@@ -225,15 +234,15 @@ module.exports = function (app, userModel) {
     }
 
     function findAllUsers(req, res) {
-        userModel
-            .findAllUsers()
-            .then(function (users) {
-                if(err) {
-                    res.sendStatus(500);
-                } else {
+        if(req.user && req.user.role=='ADMIN') {
+            userModel
+                .findAllUsers()
+                .then(function (users) {
                     res.json(users);
-                }
-            });
+                });
+        } else {
+            res.json({});
+        }
     }
 
     function loggedIn(req, res) {
@@ -295,14 +304,15 @@ module.exports = function (app, userModel) {
     }
 
     function deleteUser(req, res) {
-        var userId = req.params.userId;
-        userModel
-            .deleteUser(userId)
-            .then(function () {
-                res.sendStatus(200);
-            },function () {
-                res.sendStatus(404);
-            });
+        if (req.user && req.user.role == 'ADMIN') {
+            userModel
+                .deleteUser(req.params.userId)
+                .then(function (status) {
+                    res.send(200);
+                });
+        } else {
+            res.send(401);
+        }
     }
 
     function createUser(req, res) {

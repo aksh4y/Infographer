@@ -3,7 +3,7 @@
  */
 (function() {
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .factory("InfographicService", InfographicService);
 
     function InfographicService($http) {
@@ -27,13 +27,11 @@
             return $http.post("/api/creator/"+userId);
         }
 
-
         function deleteInfographic(infographicId) {
             return $http.delete("/api/infographic/" + infographicId);
         }
 
         function updateInfographic(infographicId, infographic) {
-            console.log("In service client");
             return $http.put("/api/infographic/" + infographicId, infographic);
         }
 

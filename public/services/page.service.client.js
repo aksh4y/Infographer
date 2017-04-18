@@ -3,7 +3,7 @@
  */
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .factory("PageService", PageService);
 
     function PageService($http) {

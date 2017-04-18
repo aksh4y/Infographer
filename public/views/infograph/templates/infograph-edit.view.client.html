@@ -51,13 +51,21 @@
     });
 
     // Prevent enter key
-    $('#canvas').on('keydown', function(e) {
-        //Prevent insertion of a return
-        if (e.which == 13 && e.shiftKey == false) {
-            alert("Try pressing Shift + Enter");
-            return false;
-        }
-    });
+   $('#canvas').on('keydown', function(e) {
+       //Prevent insertion of a return
+       if (e.which == 13 && e.shiftKey == false) {
+           alert("Try pressing Shift + Enter");
+           return false;
+       }
+   });
+
+   // Prevent enter key
+   $('#infoTitle').on('keydown', function(e) {
+       //Prevent insertion of a return
+       if (e.which == 13 && e.shiftKey == false) {
+           return false;
+       }
+   });
 
     // Remove highlights when clicked outside of canvas
     $("body").on('click', function (evt) {
@@ -71,7 +79,6 @@
             hideAll();
         }
     });
-
 
 
     $("#canvas > div").draggable();
@@ -108,11 +115,13 @@
         });
     });
 </script>
-
+<!-- custom right click menu -->
 <ul class='custom-menu'>
     <li data-action = "delete">Delete</li>
 </ul>
+<!-- end of menu -->
 
+<!-- top nav -->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="row container-fluid">
         <div class="col-xs-12">
@@ -160,9 +169,9 @@
                     <nav id="spy">
                         <ul class="sidebar-nav nav">
                             <li>
-                                <img class="logo" src="../../../../assets/Logo.png" />
+                                <img class="logo" src="../../../assets/Logo.png" />
                             </li>
-                            <li> <a href="#/dashboard">
+                            <li> <a href="#/dashboard" data-target="#">
                                 <span class="fa fa-home solo">Dashboard</span></a>
                             </li>
                             <li> <a onclick="toggleSidepanel('#graphics')">
@@ -236,6 +245,7 @@
             </div>
             <!-- End of canvas -->
 
+            <!-- Sidebar 2 -->
             <div class="col-md-2">
                 <!-- Sidebar -->
                 <div id="sidebar-wrapper2" style="display:none">
@@ -249,10 +259,10 @@
                             <ng-include src="'views/components/templates/editors/background-edit.view.client.html'">
                         </div>
                         <div id="txt" class="editor">
-                            <ng-include src="'views/components/templates/text-select.view.client.html'">
+                            <ng-include src="'views/components/templates/editors/text-select.view.client.html'">
                         </div>
                          <div id="graphics" class="editor">
-                             <ng-include src="'views/widget/templates/editors/widget-IMAGE-editor.view.client.html'">
+                             <ng-include src="'views/widgetOld/templates/editors/widget-IMAGE-editor.view.client.html'">
                          </div>
                         <div id="shapes" class="editor">
                             <ng-include src="'views/components/templates/shapes-select.view.client.html'">

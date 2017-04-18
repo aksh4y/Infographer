@@ -1,6 +1,6 @@
 <script>
 
-    $('#text1').on('click', function () {
+   /* $('#text1').on('click', function () {
         var t = $(this).clone();
         $(t).addClass('widget');
         $('#canvas').append(t);
@@ -28,23 +28,23 @@
         $(t).css('display', 'block');
         $('#canvas').append(t);
         $('.draggable').draggable();
-    });
+    });*/
 
 </script>
 
 <div class="col-xs-12" style="margin-left:10px">
-    <div id="text1" class="row draggable widget">
+    <div ng-click="model.createTextComponent('Times New Roman')" id="text1" class="row draggable widget">
         <h1>TEXT</h1>
     </div>
     <div id="text2" class="row draggable widget">
-        <h1 style="font-family: 'Amatic SC', cursive;">TEXT</h1>
+        <h1 ng-click="model.createTextComponent('Amatic Sc')" style="font-family: 'Amatic SC', cursive;">TEXT</h1>
     </div>
     <br/>
-    <div id="jumbo" class="row draggable widget">
+    <div ng-click="model.createJumboComponent()" id="jumbo" class="row draggable widget">
         Jumbotron
     </div>
     <br/>
-    <div id="anchor" class="row draggable widget">
+    <div ng-click="createAnchorComponent()" id="anchor" class="row draggable widget">
         Anchor
     </div>
 </div>

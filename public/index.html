@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="WebAppMaker" class="no-js">
+<html lang="en" ng-app="Infographer" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no">
@@ -24,7 +24,7 @@
     <link href="css/bootstrap-colorpicker.min.css" rel="stylesheet" />
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src ="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
@@ -39,7 +39,6 @@
     <script src="js/bootstrap-colorpicker.min.js"></script>
     <script src="js/print.js"></script>
     <script src="js/html2canvas.svg.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
     <script src="js/loadImg.js"></script>
 
     <!--<script src="../js/mouse.js"></script>-->
@@ -55,21 +54,18 @@
     <script src="views/user/controllers/user.controller.client.js"></script>
     <script src="views/user/controllers/user.dashboard.client.js"></script>
     <script src="views/infograph/controller/infograph.controller.client.js"></script>
-    <script src="views/page/controllers/page.controller.client.js"></script>
-    <script src="views/widget/controllers/widget.controller.client.js"></script>
+    <script src="views/admin/controllers/admin.controller.client.js"></script>
 
     <!-- Services -->
     <script src="services/user.service.client.js"></script>
-    <script src="services/page.service.client.js"></script>
     <script src="services/infographic.service.client.js"></script>
-    <script src="services/widget.service.client.js"></script>
     <script src="services/flickr.service.client.js"></script>
+    <script src="services/component.service.client.js"></script>
 
     <title>Infographer: Present data better</title>
 </head>
 <body class="as-body-padding">
-<div class="se-pre-con"></div>
-
-<div ng-view></div>
+<div class="se-pre-con"></div>  <!-- Loader gif -->
+<div ng-view></div> <!-- angular view -->
 </body>
 </html>

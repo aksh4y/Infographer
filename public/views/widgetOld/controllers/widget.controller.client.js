@@ -1,6 +1,6 @@
 (function(){
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .controller("WidgetListController", WidgetListController)
         .controller("WidgetNewController", WidgetNewController)
         .controller("WidgetEditController", WidgetEditController)

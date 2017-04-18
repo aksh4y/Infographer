@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .service("WidgetService", WidgetService);
     
     function WidgetService($http) {

@@ -1,7 +1,7 @@
 {
-  "name": "web-dev",
+  "name": "infographer",
   "version": "1.0.0",
-  "description": "Web Dev at Northeastern University",
+  "description": "Infographer: Present data better",
   "main": "server.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",

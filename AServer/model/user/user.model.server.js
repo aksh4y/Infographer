@@ -21,7 +21,8 @@ module.exports = function () {
         "updateUser": updateUser,
         "deleteUser": deleteUser,
         "findUserByGoogleId": findUserByGoogleId,
-        "findUserByFacebookId": findUserByFacebookId
+        "findUserByFacebookId": findUserByFacebookId,
+        "findAllUsers": findAllUsers
     };
 
     return api;
@@ -33,6 +34,10 @@ module.exports = function () {
 
     function findUserByFacebookId(facebookId) {
         return userModel.findOne({'facebook.id': facebookId});
+    }
+
+    function findAllUsers() {
+        return userModel.find();
     }
 
 

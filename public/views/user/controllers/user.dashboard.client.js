@@ -4,7 +4,7 @@
 
 (function() {
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .controller("DashboardController", DashboardController);
 
 

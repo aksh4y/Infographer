@@ -4,7 +4,7 @@
 
 (function() {
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .controller("InfographNewController", InfographNewController)
         .controller("InfographEditController", InfographEditController)
         .controller("InfographViewController", InfographViewController);
@@ -52,12 +52,16 @@
         init();
     }
 
-    function InfographEditController(currentUser, $routeParams, UserService, InfographicService, $location) {
+    function InfographEditController
+    (currentUser, $routeParams, ComponentService, UserService, InfographicService, $location) {
         var vm = this;
         vm.user = currentUser;
         vm.infographId = $routeParams.inid;
         vm.updateInfograph = updateInfograph;
         vm.deleteInfograph = deleteInfograph;
+        vm.createTextComponent = createTextComponent;
+        vm.createJumboComponent = createJumboComponent;
+        vm.createAnchorComponent = createAnchorComponent;
         vm.logout = logout;
         vm.infographic = {};
         function init() {
@@ -81,7 +85,7 @@
             InfographicService
                 .deleteInfographic(vm.infographId)
                 .success(function () {
-                    $location.url("/dashboard");
+                    $location.url('/dashboard');
                 })
                 .error(function () {
                     vm.error = "An error has occurred";
@@ -94,7 +98,7 @@
                 .then(function (reponse) {
                     $location.url('/login');
                 });
-        };
+        }
 
         function updateInfograph (infograph) {
 
@@ -108,6 +112,18 @@
             var background_Url = $('#page-content-wrapper').css('background-image');
             background_Url = background_Url.replace('url(','').replace(')','').replace(/\"/gi, "");
             var background_color = $('#page-content-wrapper').css('background-color');
+
+            /*html2canvas($('#page-content-wrapper'), {
+                onrendered: function(canvas) {
+
+                    $('#myFile').val(canvas.toDataURL("image/png")
+                        .replace(/^data:image\/[^;]/, 'data:application/octet-stream'));
+                    document.getElementById("myForm").submit();
+                }
+            });*/
+
+
+
             var newInfograph = {
              name: infoTitle,
              background_color: background_color,
@@ -122,6 +138,59 @@
              .error(function () {
              vm.error = "An error has occurred.";
              });
+        }
+
+        /* Components */
+
+        function createJumboComponent() {
+            var newComponent = {
+                type: 'JUMBO',
+                _infographic: vm.infographicId,
+                heading: "New Heading",
+                text: "Text"
+            };
+            ComponentService
+                .createComponent(vm.infographicId, newComponent)
+                .success(function (component) {
+                    $location.url("/infographic/"+"/component/"+component._id+"?new=yes");
+                })
+                .error(function () {
+                    vm.error = "Could not create component";
+                });
+        }
+
+        function createAnchorComponent() {
+            var newComponent = {
+                type: 'ANCHOR',
+                _infographic: vm.infographicId,
+                heading: "New Anchor",
+                text: "Text"
+            };
+            ComponentService
+                .createComponent(vm.infographicId, newComponent)
+                .success(function (component) {
+                    $location.url("/infographic/"+"/component/"+component._id+"?new=yes");
+                })
+                .error(function () {
+                    vm.error = "Could not create component";
+                });
+        }
+
+        function createTextComponent(style) {
+            var newComponent = {
+                type: 'TEXT',
+                _infographic: vm.infographId,
+                text: "Text",
+                font: style
+            };
+            ComponentService
+                .createComponent(vm.infographicId, newComponent)
+                .success(function (component) {
+                    $location.url("/infographic/"+"/component/"+component._id+"?new=yes");
+                })
+                .error(function () {
+                    vm.error = "Could not create component";
+                });
         }
     }
 

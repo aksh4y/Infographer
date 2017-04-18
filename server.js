@@ -1,9 +1,16 @@
 var express = require('express');
 var app = express();
 
+
+
+
 var bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
+/*
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+*/
 
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
@@ -23,7 +30,6 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 require ("./test/app.js")(app);
-require("./todo/app")(app);
 require("./AServer/app.js")(app);
 require("./AServer/services/user.service.server");
 var port = process.env.PORT || 3000;

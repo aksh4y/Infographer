@@ -3,7 +3,7 @@
  */
 (function(){
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .controller("PageListController", PageListController)
         .controller("PageNewController", PageNewController)
         .controller("PageEditController", PageEditController);

@@ -3,5 +3,5 @@
  */
 (function () {
     angular
-        .module("WebAppMaker", ["ngRoute", "wamDirectives", "textAngular"]);
+        .module("Infographer", ["ngRoute", "wamDirectives", "textAngular"]);
 })();

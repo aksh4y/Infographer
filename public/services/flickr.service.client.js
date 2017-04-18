@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("Infographer")
         .factory("FlickrService",FlickrService);
 
     function FlickrService($http) {

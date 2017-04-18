@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("WebAppMaker", ['ngRoute'])
+        .module("Infographer", ['ngRoute'])
         .config(configuration);
 
     function configuration($routeProvider, $httpProvider) {
@@ -43,6 +43,14 @@
                 controllerAs: "model",
                 resolve: {
                     currentUser: checkLogin
+                }
+            })
+            .when("/admin", {
+                templateUrl: 'views/admin/templates/admin.view.html',
+                controller: "AdminController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkAdmin
                 }
             })
             /*.when("/user/:uid/infograph/:inid/widget",{
@@ -89,13 +97,13 @@
             });
     }
 
-        function checkAdmin($q, userService, $location) {
+        function checkAdmin($q, UserService, $location) {
             var deferred = $q.defer();
-            userService
+            UserService
                 .isAdmin()
                 .then(function (user) {
                     console.log(user);
-                    if(user != '0' && user.roles.indexOf('ADMIN') > -1) {
+                    if(user != '0' && user.role.indexOf('ADMIN') > -1) {
                         deferred.resolve(user);
                     } else {
                         $location.url('/profile');

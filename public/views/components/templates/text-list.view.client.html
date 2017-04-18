@@ -1,0 +1,12 @@
+<div ng-switch="model.component.font">
+    <div ng-switch-when="Times New Roman">
+        <div id="text1" class="row draggable widget">
+            <h1>{{model.component.text}}</h1>
+        </div>
+    </div>
+    <div ng-switch-when="Amatic SC">
+        <div id="text2" class="row draggable widget">
+            <h1 style="font-family: 'Amatic SC', cursive;">{{model.component.text}}</h1>
+        </div>
+    </div>
+</div>
