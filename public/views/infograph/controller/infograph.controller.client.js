@@ -61,6 +61,7 @@
         vm.createTextComponent = createTextComponent;
         vm.createShapeComponent = createShapeComponent;
         vm.logout = logout;
+        vm.deleteComponent = deleteComponent;
         vm.infographic = {};
         function init() {
             InfographicService
@@ -124,7 +125,7 @@
             InfographicService
                 .updateInfographic(vm.infographId, newInfograph)
                 .success(function(i) {
-                    //console.log($(vm.components[0]._id).offset());
+                    updateComponents();
                     updateComponentsPositions();
 
 
@@ -137,19 +138,27 @@
 
         /* Components */
 
+        function deleteComponent(id) {
+                ComponentService
+                    .deleteComponent(id)
+                    .success(function(){
+                        location.reload();
+                    })
+                    .error(function () {
+                        vm.error = "Unable to delete component";
+                    });
+        }
         function updateComponentsPositions() {
 
             for (var c in vm.components) {
-                var d = document.getElementById(vm.components[c]._id+'div');
+                var d = $(document.getElementById(vm.components[c]._id));
                 var newPos = {
-                    x: $(d).offset().left,
-                    y: $(d).offset().top
+                    left: d.css('left'),
+                    top: d.css('top')
                 };
-                console.log(newPos);
                 ComponentService
                     .updateComponent(vm.components[c]._id, newPos)
                     .success(function() {
-                        console.log("success");
                     })
                     .error(function(err) {
                         vm.error = "Something went wrong!";
@@ -179,34 +188,32 @@
         function  updateComponents() {
             var txt = "";
             var heading = "";
-            for(c in vm.components) {
+            for(var c in vm.components) {
                 switch (vm.components[c].type) {
                     case 'TEXT':
-                        txt = $(document.getElementById(vm.components[c]._id)).text();
+                        txt = $(document.getElementById(vm.components[c]._id +'div')).text();
                         break;
                     case 'JUMBO':
-                        var h = vm.components[c]._id.toString() + 'jHeader';
-                        heading = $(h).text();
-                        console.log(heading);
-                        heading = $(heading).text();
-                        txt = getElementInsideContainer
-                        (document.getElementById(vm.components[c]._id), "jTxt");
-                        txt = $(txt).text();
+                        heading = $(document.getElementById(vm.components[c]._id +'jHeader')).text();
+                        txt = $(document.getElementById(vm.components[c]._id +'jTxt')).text();
                         break;
                     case 'ANCHOR':
-                        heading = getElementInsideContainer
-                        (document.getElementById(vm.components[c]._id), "aLegend");
-                        heading = $(heading).text();
-                        txt = getElementInsideContainer
-                        (document.getElementById(vm.components[c]._id), "aTxt");
-                        txt = $(txt).text();
+                        heading = $(document.getElementById(vm.components[c]._id +'aLegend')).text();
+                        txt = $(document.getElementById(vm.components[c]._id +'aTxt')).text();
                         break;
                 }
                 var updatedComponent = {
                     text: txt,
                     heading: heading
                 };
-                console.log(updatedComponent);
+                ComponentService
+                    .updateComponent(vm.components[c]._id, updatedComponent)
+                    .success(function(){
+                        return;
+                    })
+                    .error(function () {
+                        vm.error = "Unable to update component";
+                    });
             }
         }
 

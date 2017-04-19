@@ -80,8 +80,7 @@ module.exports = function (app, componentModel) {
 
 
     function deleteComponent(req, res) {
-        var componentId = req.params.componentId;
-        var infographicId = req.params.infographicId;
+        var componentId = req.params.cid;
         componentModel
             .findComponentById(componentId)
             .then(function(component) {
@@ -94,23 +93,22 @@ module.exports = function (app, componentModel) {
                         }
                     }
                 }
-                var delIndex = component.index;
                 componentModel
                     .deleteComponent(componentId)
                     .then(function () {
                         res.sendStatus(200);
 
-                        /*componentModel
+                        componentModel
                          .findAllComponentsForInfographic(infographicId)
                          .then(function(allComponents) {
-                         for (var wig in allComponents) {
-                         if (allComponents[wig].index > delIndex)
+                         for (var cmp in allComponents) {
+                         if (allComponents[cmp].index > delIndex)
                          componentModel
-                         .updateComponent(allComponents[wig]._id, allComponents[wig].index--);
+                         .updateComponent(allComponents[cmp]._id, allComponents[cmp].index--);
                          }
                          }, function(err) {
                          res.sendStatus(err);
-                         });*/
+                         });
 
                     }, function(err) {
                         res.sendStatus(err);
@@ -157,17 +155,16 @@ module.exports = function (app, componentModel) {
     }
 
     function updateComponent(req, res) {
-        var componentId = req.params['componentId'];
-
+        var componentId = req.params['cid'];
         componentModel
             .findComponentById(componentId)
             .then(function(component) {
                 var newComponent = req.body;
-                switch(newComponent.type){
-                    case "HEADING":
-                    case "YOUTUBE":
-                    case "HTML":
+                switch(component.type){
                     case "TEXT":
+                    case "JUMBO":
+                    case "ANCHOR":
+                    case "SHAPE":
                         componentModel
                             .updateComponent(componentId, newComponent)
                             .then(function(w){

@@ -2,12 +2,12 @@
     <div ng-switch-when="TEXT">
         <div ng-switch="component.font">
             <div ng-switch-when="Times New Roman">
-                <div ng-attr-id="{{component._id + 'div'}}" contenteditable="true" class="widget" style="position: absolute; left:{{component.left}}; top:{{component.top}}">
+                <div ng-attr-id="{{component._id + 'div'}}" contenteditable="true" class="widget">
                     <h1>{{component.text}}</h1>
                 </div>
             </div>
             <div ng-switch-when="Amatic SC">
-                <div ng-attr-id="{{component._id + 'div'}}" contenteditable="true" class="widget" style="position: absolute; left:{{component.left}}; top:{{component.top}}">
+                <div ng-attr-id="{{component._id + 'div'}}" contenteditable="true" class="widget">
                     <h1 style="font-family: 'Amatic SC', cursive;">{{component.text}}</h1>
                 </div>
             </div>
@@ -21,8 +21,8 @@
     </div>
     <div ng-switch-when="ANCHOR">
         <div ng-attr-id="{{component._id + 'div'}}" class="well text-center" contenteditable="true">
-            <legend id="aLegend" class="aLegend">{{component.heading}}</legend>
-            <p id="aTxt" class="aTxt">{{component.text}}</p>
+            <legend ng-attr-id="{{component._id + 'aLegend'}}" class="aLegend">{{component.heading}}</legend>
+            <p ng-attr-id="{{component._id + 'aTxt'}}" class="aTxt">{{component.text}}</p>
         </div>
     </div>
 </div>

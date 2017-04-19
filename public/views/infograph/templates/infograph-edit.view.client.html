@@ -226,25 +226,27 @@
                     <div id="canvas" class="page-content inset">
 
                         <!-- Load all components -->
-                        <div id="components" class="row draggable" ng-repeat="component in model.components" style="position: relative">
-                            <!--<div class="as-toolbar">
-                                <a href="#/infographic/{{model.infographId}}/component/{{component._id}}">
-                                    <span class="glyphicon glyphicon-cog"></span>
+                        <div id="components" ng-repeat="component in model.components" style="position: relative">
+                            <div class="row draggable" ng-attr-id="{{component._id}}"
+                            style="position: absolute; left: {{component.left}}; top: {{component.top}}">
+                                <a ng-click="model.deleteComponent(component._id)">
+                                    <span class="glyphicon glyphicon-remove"></span>
                                 </a>
-                            </div>-->
-                            <div ng-attr-id="{{component._id}}" ng-switch="component.type">
-                                <div ng-switch-when="TEXT">
-                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                <div ng-switch="component.type">
+                                    <div ng-switch-when="TEXT">
+                                        <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                    </div>
+                                    <div ng-switch-when="JUMBO">
+                                        <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                    </div>
+                                    <div ng-switch-when="ANCHOR">
+                                        <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                    </div>
+                                    <div ng-switch-when="SHAPE">
+                                        <ng-include src="'views/components/templates/shape-list.view.client.html'">
+                                    </div>
                                 </div>
-                                <div ng-switch-when="JUMBO">
-                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
-                                </div>
-                                <div ng-switch-when="ANCHOR">
-                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
-                                </div>
-                                <div ng-switch-when="SHAPE">
-                                    <ng-include src="'views/components/templates/shape-list.view.client.html'">
-                                </div>
+
                                 <!--
                                 <div ng-switch-when="IMAGE">
                                     <ng-include src="'views/widget/templates/widget-image.view.client.html'">
