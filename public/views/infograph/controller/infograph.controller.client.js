@@ -59,6 +59,7 @@
         vm.updateInfograph = updateInfograph;
         vm.deleteInfograph = deleteInfograph;
         vm.createTextComponent = createTextComponent;
+        vm.createShapeComponent = createShapeComponent;
         vm.logout = logout;
         vm.infographic = {};
         function init() {
@@ -123,8 +124,8 @@
             InfographicService
                 .updateInfographic(vm.infographId, newInfograph)
                 .success(function(i) {
-
-                    //updateComponents();
+                    //console.log($(vm.components[0]._id).offset());
+                    updateComponentsPositions();
 
 
                     vm.message = "Successfully saved!";
@@ -135,6 +136,26 @@
         }
 
         /* Components */
+
+        function updateComponentsPositions() {
+
+            for (var c in vm.components) {
+                var d = document.getElementById(vm.components[c]._id+'div');
+                var newPos = {
+                    x: $(d).offset().left,
+                    y: $(d).offset().top
+                };
+                console.log(newPos);
+                ComponentService
+                    .updateComponent(vm.components[c]._id, newPos)
+                    .success(function() {
+                        console.log("success");
+                    })
+                    .error(function(err) {
+                        vm.error = "Something went wrong!";
+                    });
+            }
+        }
 
         /*function updateTextComponent() {
             var newComponent = {
@@ -228,6 +249,22 @@
                 heading: heading,
                 top: top,
                 left: left};
+            ComponentService
+                .createComponent(vm.infographId, newComponent)
+                .success(function (component) {
+                    location.reload();
+                })
+                .error(function () {
+                    vm.error = "Could not create component";
+                });
+        }
+
+        function createShapeComponent(ele) {
+
+            var newComponent = {
+                type: "SHAPE",
+                font: ele
+            };
             ComponentService
                 .createComponent(vm.infographId, newComponent)
                 .success(function (component) {

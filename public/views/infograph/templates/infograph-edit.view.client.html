@@ -1,11 +1,11 @@
 <script>
-   /* $('#account').on('click', function () {
-        var element = document.getElementById('account');
-        if(element.classList.contains('open'))
-            $('#account').removeClass('open'); // Closes the dropdown
-        else
-            $('#account').addClass('open'); // Opens the dropdown
-    });*/
+    /* $('#account').on('click', function () {
+     var element = document.getElementById('account');
+     if(element.classList.contains('open'))
+     $('#account').removeClass('open'); // Closes the dropdown
+     else
+     $('#account').addClass('open'); // Opens the dropdown
+     });*/
 
     function toggleSidepanel(ele) {
         $("#sidebar-wrapper2").show();
@@ -30,59 +30,65 @@
 
 
     /*$( function() {
-        $(".as-img").on('click', function() {
-            $(this)
-                .clone()
-                .addClass('widget')
-                .appendTo('#canvas')
-                .draggable();
-        });
-    });*/
+     $(".as-img").on('click', function() {
+     $(this)
+     .clone()
+     .addClass('widget')
+     .appendTo('#canvas')
+     .draggable();
+     });
+     });*/
 
     // Prevent enter key
-   $('#canvas').on('keydown', function(e) {
-       //Prevent insertion of a return
-       if (e.which === 13 && e.shiftKey === false) {
-           alert("Try pressing Shift + Enter");
-           return false;
-       }
-       if (e.which === 46)
-       {}
-   });
+    $('#canvas').on('keydown', function(e) {
+        //Prevent insertion of a return
+        if (e.which === 13 && e.shiftKey === false) {
+            alert("Try pressing Shift + Enter");
+            return false;
+        }
+        if (e.which === 46)
+        {}
+    });
 
-   // Prevent enter key
-   $('#infoTitle').on('keydown', function(e) {
-       //Prevent insertion of a return
-       if (e.which == 13 && e.shiftKey == false) {
-           return false;
-       }
-   });
+    // Prevent enter key
+    $('#infoTitle').on('keydown', function(e) {
+        //Prevent insertion of a return
+        if (e.which == 13 && e.shiftKey == false) {
+            return false;
+        }
+    });
 
     // Remove highlights when clicked outside of canvas
     $("body").on('click', function (evt) {
         /*if(evt.target.id == "menu")
-            return;
-        hideAll();*/
+         return;
+         hideAll();*/
         var container = $("#canvas");
         if (!container.is(evt.target) // if the target of the click isn't the container...
-            && container.has(evt.target).length === 0) // ... nor a descendant of the container
-        {
+            && container.has(evt.target).length === 0) { // ... nor a descendant of the container
             removeHighlights();
         }
     });
 
-   $("#canvas").on("mousedown", ".draggable", function() {
 
-       // Use the UI pseudo-selector to check that
-       // it is not already draggable
-       if(!$(this).is(":ui-draggable"))
-           $(this).draggable({
-               cursor: "move"
-           });
-   });
+    $("#canvas").on("drag", ".draggable", function() {
+        trackPosition(this);
+    });
 
-  $('#components > .draggable').draggable();
-   $('#components > .row').draggable();
+    $("#canvas").on("mousedown", ".draggable", function() {
+
+        // Use the UI pseudo-selector to check that
+        // it is not already draggable
+        if(!$(this).is(":ui-draggable"))
+            $(this).draggable({
+                cursor: "move",
+                drag: function(event,ui){
+                    dragposition = ui.position;
+                    //console.log(dragposition);
+                }
+            });
+    });
+
     $("#canvas")
         .on('click', '.row', function(){
             if ( $(this).is('.ui-draggable-dragging') ) {
@@ -99,6 +105,13 @@
     /*$( "#canvas > div" ).on('click', function() {
      $('#sidebar-wrapper2').show();
      });*/
+
+    function trackPosition(ele) {
+        var x = $(ele).offset().left;
+        var y = $(ele).offset().top;
+        var e = $(ele).children('div').attr('id');
+        //console.log(x+","+y);
+    }
 
     $('#canvas > div').on('drag', function() {
         $('#x-pos').val($(this).offset().top);
@@ -128,7 +141,7 @@
         <div class="col-xs-12">
             <div class="navbar-text pull-right">
                 <a ng-click="model.logout()" class="navbar-link">
-                      <span class="glyphicon glyphicon-log-out"> Logout</span>
+                    <span class="glyphicon glyphicon-log-out"> Logout</span>
                 </a>
                 <!--<div id="account" class="dropdown">
                     <a id="menu" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -219,7 +232,7 @@
                                     <span class="glyphicon glyphicon-cog"></span>
                                 </a>
                             </div>-->
-                            <div ng-switch="component.type">
+                            <div ng-attr-id="{{component._id}}" ng-switch="component.type">
                                 <div ng-switch-when="TEXT">
                                     <ng-include src="'views/components/templates/text-list.view.client.html'">
                                 </div>
@@ -229,14 +242,15 @@
                                 <div ng-switch-when="ANCHOR">
                                     <ng-include src="'views/components/templates/text-list.view.client.html'">
                                 </div>
+                                <div ng-switch-when="SHAPE">
+                                    <ng-include src="'views/components/templates/shape-list.view.client.html'">
+                                </div>
                                 <!--
                                 <div ng-switch-when="IMAGE">
                                     <ng-include src="'views/widget/templates/widget-image.view.client.html'">
                                 </div>
                                 <div style="width:{{widget.width}}; height:{{widget.height}}">
-                                    <div ng-switch-when="SHAPE">
-                                        <ng-include src="'views/widget/templates/widget-shape.view.client.html'">
-                                    </div>
+
                                 </div>
                                 <div ng-switch-when="LINE">
                                     <ng-include src="'views/widget/templates/widget-html.view.client.html'">
@@ -264,11 +278,11 @@
                         <div id="txt" class="editor">
                             <ng-include src="'views/components/templates/editors/text-new.view.client.html'">
                         </div>
-                         <div id="graphics" class="editor">
-                             <ng-include src="'views/widgetOld/templates/editors/widget-IMAGE-editor.view.client.html'">
-                         </div>
+                        <div id="graphics" class="editor">
+                            <ng-include src="'views/components/templates/editors/image-edit.view.client.html'">
+                        </div>
                         <div id="shapes" class="editor">
-                            <ng-include src="'views/components/templates/shapes-select.view.client.html'">
+                            <ng-include src="'views/components/templates/editors/shape-edit.view.client.html'">
                         </div>
                     </nav>
                 </div>

@@ -202,6 +202,7 @@
                     vm.error = "Could not create component";
                 });
         }*/
+        
 
         function createTextComponent() {
 
