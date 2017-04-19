@@ -42,10 +42,12 @@
     // Prevent enter key
    $('#canvas').on('keydown', function(e) {
        //Prevent insertion of a return
-       if (e.which == 13 && e.shiftKey == false) {
+       if (e.which === 13 && e.shiftKey === false) {
            alert("Try pressing Shift + Enter");
            return false;
        }
+       if (e.which === 46)
+       {}
    });
 
    // Prevent enter key
@@ -69,10 +71,18 @@
         }
     });
 
+   $("#canvas").on("mousedown", ".draggable", function() {
 
-    $("#canvas > div").draggable();
-    $(".draggable").draggable();
-    $("#components").draggable();
+       // Use the UI pseudo-selector to check that
+       // it is not already draggable
+       if(!$(this).is(":ui-draggable"))
+           $(this).draggable({
+               cursor: "move"
+           });
+   });
+
+  $('#components > .draggable').draggable();
+   $('#components > .row').draggable();
     $("#canvas")
         .on('click', '.row', function(){
             if ( $(this).is('.ui-draggable-dragging') ) {
@@ -182,17 +192,6 @@
                             </a>
 
                             </li>
-                            <!--<li class=""> <a href="#anch4" data-scroll="" class="">
-                                <span class="fa fa-bars solo">Widgets</span>
-                            </a>
-
-                            </li>-->
-                            <li>
-                                <svg id="star" class="as-img" width="150" height="150">
-                                    <circle cx="70" cy="70" r="40" fill="yellow" />
-                                </svg>
-                                <!--<img id="star" class="as-img" src="../../../../assets/shapes/star.svg" width="200px" height="200px" stycomponentsound:#FFFFFF"/>-->
-                            </li>
 
                         </ul>
 
@@ -214,12 +213,12 @@
                     <div id="canvas" class="page-content inset">
 
                         <!-- Load all components -->
-                        <div id="components" ng-repeat="component in model.components" style="position: relative">
-                            <div class="as-toolbar">
+                        <div id="components" class="row draggable" ng-repeat="component in model.components" style="position: relative">
+                            <!--<div class="as-toolbar">
                                 <a href="#/infographic/{{model.infographId}}/component/{{component._id}}">
                                     <span class="glyphicon glyphicon-cog"></span>
                                 </a>
-                            </div>
+                            </div>-->
                             <div ng-switch="component.type">
                                 <div ng-switch-when="TEXT">
                                     <ng-include src="'views/components/templates/text-list.view.client.html'">

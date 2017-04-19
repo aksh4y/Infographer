@@ -124,7 +124,7 @@
                 .updateInfographic(vm.infographId, newInfograph)
                 .success(function(i) {
 
-                    updateComponents();
+                    //updateComponents();
 
 
                     vm.message = "Successfully saved!";
