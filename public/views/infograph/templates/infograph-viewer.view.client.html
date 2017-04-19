@@ -66,10 +66,29 @@
             <div class="col-md-8 col-sm-12">
                 <div class="header" id="infoTitle">{{model.infographic.name}}</div>
                 <div id="page-content-wrapper">
-                    <img id="canvas-bg" ng-src="{{model.infographic.background_url}}" ng-show="model.infographic.background_url != 'none'" />
+                    <!-- Load all components -->
+                    <div id="components" ng-repeat="component in model.components" style="position: relative">
+                        <div ng-attr-id="{{component._id}}"
+                             style="position: absolute; left: {{component.left}}; top: {{component.top}}">
+                            <div ng-switch="component.type">
+                                <div ng-switch-when="TEXT">
+                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                </div>
+                                <div ng-switch-when="JUMBO">
+                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                </div>
+                                <div ng-switch-when="ANCHOR">
+                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                </div>
+                                <div ng-switch-when="SHAPE">
+                                    <ng-include src="'views/components/templates/shape-list.view.client.html'">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
                 </div>
             </div>
-            <div class="col-md-2"></div>
         </div>
     </div>
 </div>

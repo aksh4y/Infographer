@@ -1,7 +1,12 @@
+<script>
+    function closeWarning() {
+        $('#warning').remove();
+    }
+</script>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="row container-fluid">
         <div class="col-xs-12">
-            <div class="navbar-text pull-right">
+            <div class="navbar-text pull-right hidden-sm">
                 <a href="#/creator"
                    class="navbar-link">
                     <span class="glyphicon glyphicon-plus"></span>
@@ -21,6 +26,17 @@
     </div>
 </nav>
 
+<div ng-if="model.infographics.length == 0">
+    <h3 class="text-center">No infographics created</h3>
+</div>
+<div id="warning" class="col-xs-12 col-sm-12 hidden-md hidden-lg browserError text-center">
+    <h1 style="vertical-align: middle">Your browser is too small</h1>
+    <h3>Infographer works best on browsers that are at least 940px wide. You can however view and share your previously
+        created infographics.</h3>
+    <br/>
+    <button onclick="closeWarning()" class="btn-warning">Close</button>
+</div>
+
 <div class="container-fluid as-bottom-pad" style="margin-top:50px;">
     <div class="col-xs-2"></div>
     <div class="col-xs-8 text-center">
@@ -30,7 +46,7 @@
             <div class="dashboard-view">
                 <a href="#/viewer/{{infographic._id}}" class="infograph-text">View</a>
             </div>
-                <div class="dashboard-edit hidden-xs">
+                <div class="dashboard-edit hidden-sm">
                 <a href="#/editor/{{infographic._id}}" class="infograph-text">Edit</a>
             </div>
             <br/>

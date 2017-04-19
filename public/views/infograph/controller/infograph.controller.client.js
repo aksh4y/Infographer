@@ -9,7 +9,7 @@
         .controller("InfographEditController", InfographEditController)
         .controller("InfographViewController", InfographViewController);
 
-    function InfographViewController(currentUser, UserService, $routeParams, InfographicService, $location) {
+    function InfographViewController(currentUser, ComponentService, UserService, $routeParams, InfographicService, $location) {
         var vm = this;
         vm.user = currentUser;
         vm.infographId = $routeParams.inid;
@@ -19,6 +19,13 @@
                 .findInfographicById(vm.infographId)
                 .success(function (response) {
                     vm.infographic = response[0];
+                    $('#page-content-wrapper').css('background-image', 'url(' + vm.infographic.background_url + ')');
+                    $('#page-content-wrapper').css('background-color', vm.infographic.background_color);
+                    ComponentService
+                        .findAllComponentsForInfographic(vm.infographId)
+                        .success(function (response) {
+                            vm.components = response;
+                        });
                 })
                 .error(function () {
                     vm.error("An error has occurred!");
@@ -105,7 +112,7 @@
                 });
         }
 
-        function updateInfograph (infograph) {
+        function updateInfograph () {
             var infoTitle = $('#infoTitle').text();
             if(infoTitle == null ||
                 infoTitle == "") {
@@ -256,6 +263,7 @@
                 heading: heading,
                 top: top,
                 left: left};
+            updateInfograph();
             ComponentService
                 .createComponent(vm.infographId, newComponent)
                 .success(function (component) {
@@ -272,6 +280,7 @@
                 type: "SHAPE",
                 font: ele
             };
+            updateInfograph();
             ComponentService
                 .createComponent(vm.infographId, newComponent)
                 .success(function (component) {
