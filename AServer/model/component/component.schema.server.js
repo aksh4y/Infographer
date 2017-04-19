@@ -6,10 +6,10 @@ module.exports = function() {
     var mongoose = require("mongoose");
     var ComponentSchema = mongoose.Schema({
         _infographic: {type: mongoose.Schema.Types.ObjectId, ref: 'InfographicModel'},
-        type: {type:String, enum:['IMAGE', 'TEXT', 'HEADING', 'JUMBO', 'SHAPE'], required: true},
+        type: {type:String, enum:['IMAGE', 'TEXT', 'ANCHOR', 'JUMBO', 'SHAPE'], required: true},
         name: String,
         text: String,
-        header: String,
+        heading: String,
         font: String,
         font_size: String,
         url: String,

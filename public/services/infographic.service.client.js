@@ -19,7 +19,7 @@
 
 
         function findInfographicById(infographId) {
-            return $http.get("/api/viewer/" + infographId);
+            return $http.get("/api/infographic/" + infographId);
         }
 
 
@@ -36,7 +36,7 @@
         }
 
         function findAllInfographicsForUser(userId) {
-            return $http.get("/api/infographic/" + userId)
+            return $http.get("/api/infographics/" + userId)
                 .then(function (response) {
                     return response.data;
                 });

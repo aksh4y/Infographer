@@ -18,7 +18,6 @@
             InfographicService
                 .findInfographicById(vm.infographId)
                 .success(function (response) {
-                    console.log(response);
                     vm.infographic = response[0];
                 })
                 .error(function () {
@@ -60,18 +59,21 @@
         vm.updateInfograph = updateInfograph;
         vm.deleteInfograph = deleteInfograph;
         vm.createTextComponent = createTextComponent;
-        vm.createJumboComponent = createJumboComponent;
-        vm.createAnchorComponent = createAnchorComponent;
         vm.logout = logout;
         vm.infographic = {};
         function init() {
             InfographicService
                 .findInfographicById(vm.infographId)
                 .success(function (response) {
-                    console.log(response);
                     vm.infographic = response[0];
                     $('#page-content-wrapper').css('background-image', 'url(' + vm.infographic.background_url + ')');
                     $('#page-content-wrapper').css('background-color', vm.infographic.background_color);
+
+                    ComponentService
+                        .findAllComponentsForInfographic(vm.infographId)
+                        .success(function (response) {
+                            vm.components = response;
+                        });
                 })
                 .error(function () {
                     vm.error("An error has occurred!");
@@ -88,6 +90,7 @@
                     $location.url('/dashboard');
                 })
                 .error(function () {
+                    console.log("error");
                     vm.error = "An error has occurred";
                 });
         }
@@ -101,10 +104,9 @@
         }
 
         function updateInfograph (infograph) {
-
             var infoTitle = $('#infoTitle').text();
             if(infoTitle == null ||
-            infoTitle == "") {
+                infoTitle == "") {
                 vm.error = "Please do not leave infographic name blank";
                 $('#infoTitle').text("Enter Infographic Title");
                 return;
@@ -113,80 +115,123 @@
             background_Url = background_Url.replace('url(','').replace(')','').replace(/\"/gi, "");
             var background_color = $('#page-content-wrapper').css('background-color');
 
-            /*html2canvas($('#page-content-wrapper'), {
-                onrendered: function(canvas) {
-
-                    $('#myFile').val(canvas.toDataURL("image/png")
-                        .replace(/^data:image\/[^;]/, 'data:application/octet-stream'));
-                    document.getElementById("myForm").submit();
-                }
-            });*/
-
-
-
             var newInfograph = {
-             name: infoTitle,
-             background_color: background_color,
-             background_url: background_Url
-             };
-             InfographicService
-             .updateInfographic(vm.infographId, newInfograph)
-             .success(function(i) {
-             //$location.url("/creator/"+vm.userId+"/infographic/"+vm.websiteId+"/page");
-                 vm.message = "Successfully saved!";
-             })
-             .error(function () {
-             vm.error = "An error has occurred.";
-             });
+                name: infoTitle,
+                background_color: background_color,
+                background_url: background_Url
+            };
+            InfographicService
+                .updateInfographic(vm.infographId, newInfograph)
+                .success(function(i) {
+
+                    updateComponents();
+
+
+                    vm.message = "Successfully saved!";
+                })
+                .error(function () {
+                    vm.error = "An error has occurred.";
+                });
         }
 
         /* Components */
 
-        function createJumboComponent() {
+        /*function updateTextComponent() {
             var newComponent = {
-                type: 'JUMBO',
-                _infographic: vm.infographicId,
-                heading: "New Heading",
-                text: "Text"
+                type: type,
+                font: font,
+                text: txt,
+                heading: heading,
+                top: top,
+                left: left
             };
             ComponentService
-                .createComponent(vm.infographicId, newComponent)
+                .updateComponent(vm.infographId, newComponent)
                 .success(function (component) {
-                    $location.url("/infographic/"+"/component/"+component._id+"?new=yes");
+                    location.reload();
                 })
                 .error(function () {
                     vm.error = "Could not create component";
                 });
+        }*/
+
+        function  updateComponents() {
+            var txt = "";
+            var heading = "";
+            for(c in vm.components) {
+                switch (vm.components[c].type) {
+                    case 'TEXT':
+                        txt = $(document.getElementById(vm.components[c]._id)).text();
+                        break;
+                    case 'JUMBO':
+                        var h = vm.components[c]._id.toString() + 'jHeader';
+                        heading = $(h).text();
+                        console.log(heading);
+                        heading = $(heading).text();
+                        txt = getElementInsideContainer
+                        (document.getElementById(vm.components[c]._id), "jTxt");
+                        txt = $(txt).text();
+                        break;
+                    case 'ANCHOR':
+                        heading = getElementInsideContainer
+                        (document.getElementById(vm.components[c]._id), "aLegend");
+                        heading = $(heading).text();
+                        txt = getElementInsideContainer
+                        (document.getElementById(vm.components[c]._id), "aTxt");
+                        txt = $(txt).text();
+                        break;
+                }
+                var updatedComponent = {
+                    text: txt,
+                    heading: heading
+                };
+                console.log(updatedComponent);
+            }
         }
 
-        function createAnchorComponent() {
-            var newComponent = {
-                type: 'ANCHOR',
-                _infographic: vm.infographicId,
-                heading: "New Anchor",
-                text: "Text"
-            };
-            ComponentService
-                .createComponent(vm.infographicId, newComponent)
-                .success(function (component) {
-                    $location.url("/infographic/"+"/component/"+component._id+"?new=yes");
-                })
-                .error(function () {
-                    vm.error = "Could not create component";
-                });
-        }
+        function createTextComponent() {
 
-        function createTextComponent(style) {
+            var txtType = ($( "#textOptions option:selected").text());
+            var font = "";
+            var type = "";
+            var txt = "";
+            var heading = "";
+            var top = "50%";
+            var left = "50%";
+            switch (txtType) {
+                case 'Heading':
+                    type = 'TEXT';
+                    font = 'Times New Roman';
+                    txt = $('#text1').text();
+                    break;
+                case 'Text':
+                    type = 'TEXT';
+                    font = 'Amatic SC';
+                    txt = $('#text2').text();
+                    break;
+                case 'Jumbotron':
+                    type = 'JUMBO';
+                    heading = $('#jHeader').text();
+                    txt = $('#jTxt').text();
+                    break;
+                case 'Anchor':
+                    type = 'ANCHOR';
+                    heading = $('#aLegend').text();
+                    txt = $('#aTxt').text();
+                    break;
+            }
+
             var newComponent = {
-                type: 'TEXT',
-                _infographic: vm.infographId,
-                text: "Text",
-                font: style
-            };
+                type: type,
+                font: font,
+                text: txt,
+                heading: heading,
+                top: top,
+                left: left};
             ComponentService
-                .createComponent(vm.infographicId, newComponent)
+                .createComponent(vm.infographId, newComponent)
                 .success(function (component) {
-                    $location.url("/infographic/"+"/component/"+component._id+"?new=yes");
+                    location.reload();
                 })
                 .error(function () {
                     vm.error = "Could not create component";

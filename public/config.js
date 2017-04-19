@@ -53,6 +53,9 @@
                     currentUser: checkAdmin
                 }
             })
+            .when("/test", {
+                templateUrl: 'views/components/templates/editors/test-editor.html'
+            })
             /*.when("/user/:uid/infograph/:inid/widget",{
              templateUrl: 'views/widget/templates/widget-list.view.client.html',
              controller: "WidgetListController",
@@ -88,6 +91,14 @@
                 templateUrl: 'views/infograph/templates/infograph-edit.view.client.html',
                 controller: "InfographEditController",
                 controllerAs: "model",
+                resolve: {
+                    currentUser: checkLogin
+                }
+            })
+            .when("/editor/:inid/addtxt", {
+                templateUrl: 'views/components/templates/editors/text-new.view.client.html',
+                controller: "ComponentNewController",
+                controllerAs: 'model',
                 resolve: {
                     currentUser: checkLogin
                 }

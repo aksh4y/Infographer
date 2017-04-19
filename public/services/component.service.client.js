@@ -19,7 +19,7 @@
         return api;
 
         function findAllComponentsForInfographic(infographicId) {
-            return $http.get("/api/infographic/" + InfographicId + "/component");
+            return $http.get("/api/infographic/" + infographicId + "/components");
         }
 
         function deleteComponent(componentId) {

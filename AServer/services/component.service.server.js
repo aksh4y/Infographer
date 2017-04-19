@@ -7,11 +7,10 @@
 
 module.exports = function (app, componentModel) {
     app.post("/api/infographic/:inid/component", createComponent);
-    app.get("/api/infographic/:inid/component", findAllComponentsForInfographic);
+    app.get("/api/infographic/:inid/components", findAllComponentsForInfographic);
     app.get("/api/component/:cid", findComponentById);
     app.put("/api/component/:cid", updateComponent);
     app.delete("/api/component/:cid", deleteComponent);
-    app.put("/infographic/:inid/component", updateComponentIndex);
 
     var multer = require('multer'); // npm install multer --save
     var upload = multer({ dest: __dirname+'/../../public/uploads' });
@@ -19,16 +18,6 @@ module.exports = function (app, componentModel) {
 
     app.post ("/api/upload", upload.single('myFile'), uploadImage);
     
-
-    function sortComponents(json_object, key_to_sort_by) {
-        function sortByKey(a, b) {
-            var x = a[key_to_sort_by];
-            var y = b[key_to_sort_by];
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-        }
-
-        json_object.sort(sortByKey);
-    }
 
     function uploadImage(req, res) {
 
@@ -67,71 +56,6 @@ module.exports = function (app, componentModel) {
         res.sendStatus(404);
     }
 
-    function updateComponentIndex(req, res) {
-        var infographicId = req.params.infographicId;
-        var initialIndex = parseInt(req.query.initial);
-        var finalIndex = parseInt(req.query.final);
-
-        componentModel
-            .reorderComponent(infographicId, initialIndex, finalIndex)
-            .then(function (response) {
-                res.sendStatus(response);
-            }, function (err) {
-                res.sendStatus(404);
-            });
-    }
-
-    /*function updateComponentIndex(req, res) {
-     var infographicId = req.params.infographicId;
-     var initialIndex = parseInt(req.query.initial);
-     var finalIndex = parseInt(req.query.final);
-     componentModel
-     .findAllComponentsForInfographic(infographicId)
-     .then(function(infographic_components) {
-     var fromComponent = infographic_components.find(function (component) {
-     return component.index == initialIndex;
-     });
-
-     var toComponent = infographic_components.find(function (component) {
-     return component.index == finalIndex;
-     });
-
-     componentModel
-     .reorderComponent(infographicId, fromComponent.index, finalIndex);
-     //fromComponent.index = finalIndex;
-
-     if(initialIndex < finalIndex){
-     infographic_components.filter(function (component) {
-     return component.index > initialIndex && component.index < finalIndex;
-     }).map(function (w) {
-     componentModel
-     .reorderComponent(infographicId, w.index, w.index--);
-     //w.index -= 1;
-     });
-     componentModel
-     .reorderComponent(infographicId, toComponent.index, toComponent.index--);
-     //toComponent.index -=1;
-     }
-     else {
-     infographic_components.filter(function (component) {
-     return component.index < initialIndex && component.index > finalIndex;
-     }).map(function (w) {
-     componentModel
-     .reorderComponent(infographicId, w.index, w.index++);
-     //w.index += 1;
-     });
-     componentModel
-     .reorderComponent(infographicId, toComponent.index, toComponent.index++);
-     //toComponent.index +=1;
-     res.sendStatus(200);
-     }
-     }, function (err) {
-     res.sendStatus(404);
-     });
-
-     res.sendStatus(200);
-     }*/
-
     function findComponentById(req, res) {
         var componentId = req.params['componentId'];
         componentModel
@@ -144,11 +68,10 @@ module.exports = function (app, componentModel) {
     }
 
     function findAllComponentsForInfographic(req, res){
-        var infographicId = req.params['infographicId'];
+        var infographicId = req.params['inid'];
         componentModel
             .findAllComponentsForInfographic(infographicId)
             .then(function (components) {
-                sortComponents(components, 'index');  //Sort the components based on index
                 res.json(components);
             }, function(err) {
                 res.sendStatus(404).send(err);
@@ -223,7 +146,7 @@ module.exports = function (app, componentModel) {
 
     function createComponent(req, res) {
         var newComponent= req.body;
-        var infographicId = req.params.infographicId;
+        var infographicId = req.params.inid;
         componentModel
             .createComponent(infographicId, newComponent)
             .then(function (component) {

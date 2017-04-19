@@ -18,8 +18,8 @@ module.exports = function () {
         "findInfographicById": findInfographicById,
         "updateInfographic": updateInfographic,
         "deleteInfographic": deleteInfographic,
-        "deleteInfographicWidgets": deleteInfographicWidgets,
-        "removeWidget": removeWidget
+        "deleteInfographicComponents": deleteInfographicComponents,
+        "removeComponent": removeComponent
     };
 
     return api;
@@ -105,8 +105,8 @@ module.exports = function () {
             .then(function (infographic) {
                 infographic._user.infographics.splice(infographic._user.infographics.indexOf(infographicId),1);
                 infographic._user.save();
-                if(infographic.widgets.length !=0) {
-                    deleteinfographicWidgets(infographicId)
+                if(infographic.components.length !=0) {
+                    deleteInfographicComponents(infographicId)
                         .then(function () {
                             infographicModel
                                 .remove({_id: infographicId})
@@ -140,15 +140,14 @@ module.exports = function () {
     }
 
 
-    function deleteInfographicWidgets(infographicId) {
+    function deleteInfographicComponents(infographicId) {
         var deferred = q.defer();
-
-        model.widgetModel
-            .findAllWidgetsForInfographic(infographicId)
-            .then(function (widgets) {
-                for(var w in widgets) {
-                    model.widgetModel
-                        .deleteWidget(widgets[w]._id)
+        model.componentModel
+            .findAllComponentsForInfographic(infographicId)
+            .then(function (components) {
+                for(var c in components) {
+                    model.componentModel
+                        .deleteComponent(components[c]._id)
                         .then(function() {
                             deferred.resolve();
                         }, function(err) {
@@ -161,11 +160,11 @@ module.exports = function () {
         return deferred.promise;
     }
 
-    function removeWidget(widget) {
+    function removeComponent(component) {
         var deferred = q.defer();
-        findInfographicById(widget[0]._infographic)
+        findInfographicById(component[0]._infographic)
             .then(function(infographic) {
-                infographic[0].widgets.pull(widget[0]);
+                infographic[0].components.pull(component[0]);
                 infographic[0].save();
                 deferred.resolve();
             },function(err) {

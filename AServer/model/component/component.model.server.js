@@ -29,16 +29,16 @@ module.exports = function () {
         var d = q.defer();
         newComponent._infographic = infographicId;
         componentModel
-            .create(newComponent, function (err, w) {
+            .create(newComponent, function (err, c) {
                 if (err) {
                     d.reject(err);
                 } else {
                     model.infographicModel
                         .findInfographicById(infographicId)
                         .then(function (infographic) {
-                            infographic[0].components.push(w._id);
+                            infographic[0].components.push(c._id);
                             infographic[0].save();
-                            d.resolve(w);
+                            d.resolve(c);
                         }, function (err) {
                             d.reject(err);
                         });

@@ -1,0 +1,91 @@
+<script>
+    $('#textOptions').on('change', function() {
+        var txt = ($( "#textOptions option:selected").text());
+        if(txt == "Heading") {
+            $('#templates > div').hide();
+            $('#text1').show();
+            $('#addTxt').show();
+            $('#tip').show();
+        }
+        if(txt === "Text") {
+            $('#templates > div').hide();
+            $('#text2').show();
+            $('#addTxt').show();
+            $('#tip').show();
+        }
+        if(txt === "Jumbotron") {
+            $('#templates > div').hide();
+            $('#jumboTemp').show();
+            $('#addTxt').show();
+            $('#tip').show();
+        }
+        if(txt === "Anchor") {
+            $('#templates > div').hide();
+            $('#anchorTemp').show();
+            $('#addTxt').show();
+            $('#tip').show();
+        }
+    });
+
+    // Prevent enter key
+    $(document).on('keydown', function(e) {
+        //Prevent insertion of a return
+        if (e.which == 13 && e.shiftKey == false) {
+            return false;
+        }
+    });
+</script>
+<!-- nav
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+            <div class="navbar-text pull-left">
+                <a href="#/editor/{{model.infographicId}}" class="navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    Editor
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+ end of nav -->
+
+
+<div class="text-center">
+    <div class="text-center"><h1>ADD TEXT</h1></div>
+    <div class="styled-select yellow rounded text-center">
+        <select id="textOptions" class="text-center">
+            <option ng-selected="true" disabled>Select Style</option>
+            <option>Heading</option>
+            <option>Text</option>
+            <option>Jumbotron</option>
+            <option>Anchor</option>
+        </select>
+    </div>
+    <br/>
+    <br/>
+    <div id="templates">
+        <div id="text1" contenteditable="true" style="display: none">
+            <h1>HEADING</h1>
+        </div>
+        <div id="text2" contenteditable="true" style="font-family: 'Amatic SC', cursive; display: none">
+            <h1>TEXT</h1>
+        </div>
+        <div id="jumboTemp" contenteditable="true" class="jumbotron text-center" style="display: none; color: black">
+            <h1 id="jHeader" class="">Header!</h1>
+            <p id="jTxt" class="">Text</p>
+        </div>
+        <div id="anchorTemp" contenteditable="true" class="well text-center" style="display: none; color: black">
+            <legend id="aLegend">Anchor</legend>
+            <p id="aTxt">Text</p>
+        </div>
+    </div>
+    <a id="addTxt" class="btn btn-danger  btn-block" style="display: none"
+       ng-click="model.createTextComponent()">Add Text</a>
+    <p id="tip" style="color: wheat; display: none">Tip: Double click text to edit. Press Shift + Enter for new line</p>
+</div>

@@ -10,8 +10,8 @@ module.exports = function (app, infographicModel) {
 
     app.put("/api/infographic/:inid", updateInfographic);
     app.delete("/api/infographic/:inid", deleteInfographic);
-    app.get("/api/infographic/:userId", findAllInfographicsForUser);
-    app.get("/api/viewer/:inid", findInfographicById);
+    app.get("/api/infographics/:userId", findAllInfographicsForUser);
+    app.get("/api/infographic/:inid", findInfographicById);
     app.post("/api/creator/:userId", createInfographic);
     app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
@@ -24,11 +24,9 @@ module.exports = function (app, infographicModel) {
             infographicModel
                 .findInfographicById(infographicId)
                 .then(function(infographic) {
-                    console.log("found infograph");
                     infographic.url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
                    /* res.redirect("/assignment/#/user/" + uid + "/website/" + websiteId + "/page/"
                         + imageWidget._page + "/widget");*/
-                   console.log(infographic.url);
                     infographicModel
                         .updateInfographic(infographicId, infographic)
                         .then(function() {

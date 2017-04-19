@@ -1,5 +1,3 @@
-<script src="../../../js/mouse.js"></script>
-<script src="../../../js/print.js"></script>
 <script>
    /* $('#account').on('click', function () {
         var element = document.getElementById('account');
@@ -24,15 +22,6 @@
 
     });
 
-    // Hide all visual aids
-    function hideAll() {
-        //$('#sidebar-wrapper2').hide();
-        /*var element = document.getElementById('account');
-        if(element.classList.contains('open'))
-            $('#account').removeClass('open'); // Opens the dropdown*/
-        removeHighlights();
-    }
-
     // Remove highlights
     function removeHighlights() {
         $("#canvas > div").removeClass('highlight');
@@ -40,7 +29,7 @@
     }
 
 
-    $( function() {
+    /*$( function() {
         $(".as-img").on('click', function() {
             $(this)
                 .clone()
@@ -48,7 +37,7 @@
                 .appendTo('#canvas')
                 .draggable();
         });
-    });
+    });*/
 
     // Prevent enter key
    $('#canvas').on('keydown', function(e) {
@@ -76,12 +65,14 @@
         if (!container.is(evt.target) // if the target of the click isn't the container...
             && container.has(evt.target).length === 0) // ... nor a descendant of the container
         {
-            hideAll();
+            removeHighlights();
         }
     });
 
 
     $("#canvas > div").draggable();
+    $(".draggable").draggable();
+    $("#components").draggable();
     $("#canvas")
         .on('click', '.row', function(){
             if ( $(this).is('.ui-draggable-dragging') ) {
@@ -185,8 +176,8 @@
                                 <span class="fa fa-th solo">Background</span>
                             </a>
 
-                            </li>
-                            <li class=""> <a onclick="toggleSidepanel('#txt')" data-scroll="" class="">
+                            </li><!--href="#/editor/{{model.infographId}}/addtxt"-->
+                            <li class=""> <a onclick="toggleSidepanel('#txt')" data-scroll="" data-target="#" class="">
                                 <span class="fa fa-text-width solo">Text</span>
                             </a>
 
@@ -221,25 +212,38 @@
                 <div class="header" id="infoTitle" contenteditable="true">{{model.infographic.name}}</div>
                 <div id="page-content-wrapper" class="">
                     <div id="canvas" class="page-content inset">
-                        <!--<div class="row widget">
-                            <div class="jumbotron text-center">
-                                <h1 class="">Hello Beautiful!</h1>
 
-                                <p class="">This is a sidebar navigation responsive template built off of Bootstrap
-                                    3.0 and simple sidebar template. It includes anchors, scroll spy, smooth
-                                    scroll, and Awesome icon fonts.</p>
+                        <!-- Load all components -->
+                        <div id="components" ng-repeat="component in model.components" style="position: relative">
+                            <div class="as-toolbar">
+                                <a href="#/infographic/{{model.infographId}}/component/{{component._id}}">
+                                    <span class="glyphicon glyphicon-cog"></span>
+                                </a>
+                            </div>
+                            <div ng-switch="component.type">
+                                <div ng-switch-when="TEXT">
+                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                </div>
+                                <div ng-switch-when="JUMBO">
+                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                </div>
+                                <div ng-switch-when="ANCHOR">
+                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                </div>
+                                <!--
+                                <div ng-switch-when="IMAGE">
+                                    <ng-include src="'views/widget/templates/widget-image.view.client.html'">
+                                </div>
+                                <div style="width:{{widget.width}}; height:{{widget.height}}">
+                                    <div ng-switch-when="SHAPE">
+                                        <ng-include src="'views/widget/templates/widget-shape.view.client.html'">
+                                    </div>
+                                </div>
+                                <div ng-switch-when="LINE">
+                                    <ng-include src="'views/widget/templates/widget-html.view.client.html'">
+                                </div>-->
                             </div>
                         </div>
-                        <div class="row widget">
-                            <div class="col-md-12 well">
-                                <legend id="anch1" class="">Anchor 1</legend>
-                                <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies,
-                                    metus eget fringilla fermentum, sem justo pulvinar tellus, ac varius neque
-                                    ante eget mi. Donecus eu, auctor laoreet neque. Etiam eu
-                                    tortor rutrum, rutrum mauris sit amet, hendrerit augue. Sed ut tincidunt
-                                    nisi. Nam consectetur velit ac pharetra venenatis.</p>
-                            </div>
-                        </div>-->
                     </div>
                 </div>
             </div>
@@ -259,7 +263,7 @@
                             <ng-include src="'views/components/templates/editors/background-edit.view.client.html'">
                         </div>
                         <div id="txt" class="editor">
-                            <ng-include src="'views/components/templates/editors/text-select.view.client.html'">
+                            <ng-include src="'views/components/templates/editors/text-new.view.client.html'">
                         </div>
                          <div id="graphics" class="editor">
                              <ng-include src="'views/widgetOld/templates/editors/widget-IMAGE-editor.view.client.html'">

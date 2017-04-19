@@ -10,7 +10,7 @@ module.exports = function() {
         background_color: String,
         background_url: String,
         url: String,
-        widgets: [{type: mongoose.Schema.Types.ObjectId, ref:'WidgetModel'}],
+        components: [{type: mongoose.Schema.Types.ObjectId, ref:'ComponentModel'}],
         dateCreated: {type: Date, default: Date.now()}
     }, {collection: "infographer.infographics"});
 
