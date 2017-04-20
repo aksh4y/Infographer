@@ -1,4 +1,3 @@
-<script src="../../../js/mouse.js"></script>
 <script src="../../../js/dropbox.js"></script>
 <script src="../../../js/print.js"></script>
 <script>
@@ -66,22 +65,27 @@
             <div class="col-md-8 col-sm-12">
                 <div class="header" id="infoTitle">{{model.infographic.name}}</div>
                 <div id="page-content-wrapper">
-                    <!-- Load all components -->
-                    <div id="components" ng-repeat="component in model.components" style="position: relative">
-                        <div ng-attr-id="{{component._id}}"
-                             style="position: absolute; left: {{component.left}}; top: {{component.top}}">
-                            <div ng-switch="component.type">
-                                <div ng-switch-when="TEXT">
-                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
-                                </div>
-                                <div ng-switch-when="JUMBO">
-                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
-                                </div>
-                                <div ng-switch-when="ANCHOR">
-                                    <ng-include src="'views/components/templates/text-list.view.client.html'">
-                                </div>
-                                <div ng-switch-when="SHAPE">
-                                    <ng-include src="'views/components/templates/shape-list.view.client.html'">
+                    <div id="canvas" class="page-content inset">
+                        <!-- Load all components -->
+                        <div id="components" ng-repeat="component in model.components" style="position: relative">
+                            <div class="row" ng-attr-id="{{component._id}}"
+                                 style="position: absolute; left: {{component.left}}; top: {{component.top}}">
+                                <a>
+                                    <span class="glyphicon" style="visibility: hidden"></span>
+                                </a>
+                                <div ng-switch="component.type">
+                                    <div ng-switch-when="TEXT">
+                                        <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                    </div>
+                                    <div ng-switch-when="JUMBO">
+                                        <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                    </div>
+                                    <div ng-switch-when="ANCHOR">
+                                        <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                    </div>
+                                    <div ng-switch-when="SHAPE">
+                                        <ng-include src="'views/components/templates/shape-list.view.client.html'">
+                                    </div>
                                 </div>
                             </div>
                         </div>

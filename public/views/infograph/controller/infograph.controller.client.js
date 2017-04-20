@@ -9,9 +9,8 @@
         .controller("InfographEditController", InfographEditController)
         .controller("InfographViewController", InfographViewController);
 
-    function InfographViewController(currentUser, ComponentService, UserService, $routeParams, InfographicService, $location) {
+    function InfographViewController(ComponentService, UserService, $routeParams, InfographicService, $location) {
         var vm = this;
-        vm.user = currentUser;
         vm.infographId = $routeParams.inid;
         vm.logout = logout;
         function init() {

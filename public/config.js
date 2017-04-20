@@ -74,10 +74,7 @@
             .when("/viewer/:inid", {
                 templateUrl: 'views/infograph/templates/infograph-viewer.view.client.html',
                 controller: "InfographViewController",
-                controllerAs: "model",
-                resolve: {
-                    currentUser: checkLogin
-                }
+                controllerAs: "model"
             })
             .when("/creator", {
                 templateUrl: 'views/infograph/templates/infograph-edit.view.client.html',
