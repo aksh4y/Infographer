@@ -19,11 +19,14 @@
     <div class="row container-fluid">
         <div class="col-xs-12">
             <div class="navbar-text pull-right">
-                <a ng-click="model.logout()" class="navbar-link">
+                <a ng-show="model.user == 'yes'" ng-click="model.logout()" class="navbar-link">
                     <span class="glyphicon glyphicon-log-out"> Logout</span>
                 </a>
+                <a ng-show="model.user == 'no'" href="#/register" class="navbar-link">
+                    <span class="glyphicon glyphicon-user"> Join!</span>
+                </a>
             </div>
-            <div class="navbar-text pull-left">
+            <div ng-show="model.user == 'yes'" class="navbar-text pull-left">
                 <a href="#/dashboard" class="navbar-link">
                     <span class="glyphicon glyphicon-chevron-left"> Dashboard</span>
                 </a>

@@ -12,12 +12,22 @@
     function InfographViewController(ComponentService, UserService, $routeParams, InfographicService, $location) {
         var vm = this;
         vm.infographId = $routeParams.inid;
+        vm.user = "no";
         vm.logout = logout;
         function init() {
             InfographicService
                 .findInfographicById(vm.infographId)
                 .success(function (response) {
                     vm.infographic = response[0];
+                    UserService
+                        .loggedIn()
+                        .then(function (user) {
+                            if(user != '0') {
+                                vm.user = "yes";
+                            } else {
+                               vm.user = "no";
+                            }
+                        });
                     $('#page-content-wrapper').css('background-image', 'url(' + vm.infographic.background_url + ')');
                     $('#page-content-wrapper').css('background-color', vm.infographic.background_color);
                     ComponentService
