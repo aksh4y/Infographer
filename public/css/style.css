@@ -237,6 +237,10 @@ li>a {
     height: 350px;
 }
 
+.thumbnail > img {
+    height: 340px;
+}
+
 #delete-btn {
     margin-bottom: 70px;
 }
