@@ -2,17 +2,6 @@
 <script src="../../../js/print.js"></script>
 <script src="../../../js/facebook.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<script>
-    var html = $('#page-content-wrapper').html();
-    var download = new Blob([html], {
-        "type": "text/html"
-    });
-
-    var downloadUrl = window.URL.createObjectURL(download);
-
-    $('.g-savetodrive').attr('data-src', downloadUrl);
-
-</script>
 
 <ul class='custom-menu'>
     <li data-action = "delete">Delete</li>
@@ -53,7 +42,7 @@
             </div>
             <div class="navbar-text">
             <div class="g-savetodrive"
-                 data-src=""
+                 data-src="http://infographer.herokuapp.com/assets/Infograph.pdf"
                  data-filename="Infographic.pdf"
                  data-sitename="Infographer">
             </div>

@@ -324,24 +324,6 @@
                 }, function (err) {
                     vm.error = "Creation error";
                 });
-            /*ComponentService
-                .findComponentById(vm.component._id)
-                .then(function (response) {
-                    var updatedComponent = response.data;
-                    updatedComponent.url = url;
-                    updatedComponent.width = width;
-                    ComponentService
-                        .updateComponent(vm.component._id, updatedComponent)
-                        .then(function (response) {
-                            if(response){
-                                location.reload();
-                            }
-                        }, function (err) {
-                            vm.error = "Update error!";
-                        });
-                }, function (err) {
-                    vm.error = "Component not found!";
-                });*/
         }
     }
 

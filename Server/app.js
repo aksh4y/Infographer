@@ -10,5 +10,5 @@ module.exports = function (app) {
     require('./services/user.service.server.js')(app, models.userModel);
     require('./services/infographic.service.server.js')(app, models.infographicModel);
     require('./services/component.service.server')(app, models.componentModel);
-   // require('./services/flickr.service.AServer.js')(app);
+   // require('./services/flickr.service.Server.js')(app);
 };
