@@ -90,6 +90,10 @@ input.form-control {
     margin-bottom: 5px;
 }
 
+#page-content-wrapper {
+    height:297mm;
+}
+
 @media screen and (min-width: 940px)  {
     #page-content-wrapper {
         height:297mm;
