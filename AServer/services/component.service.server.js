@@ -150,6 +150,7 @@ module.exports = function (app, componentModel) {
             .then(function (component) {
                 res.json(component);
             }, function (err) {
+                console.log(err);
                 res.sendStatus(404);
             });
     }

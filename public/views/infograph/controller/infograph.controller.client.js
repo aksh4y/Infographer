@@ -68,7 +68,7 @@
     }
 
     function InfographEditController
-    (currentUser, $routeParams, ComponentService, UserService, InfographicService, $location) {
+    (currentUser, $routeParams, ComponentService, FlickrService, UserService, InfographicService, $location) {
         var vm = this;
         vm.user = currentUser;
         vm.infographId = $routeParams.inid;
@@ -76,8 +76,11 @@
         vm.deleteInfograph = deleteInfograph;
         vm.createTextComponent = createTextComponent;
         vm.createShapeComponent = createShapeComponent;
-        vm.logout = logout;
+        vm.createImageComponent = createImageComponent;
         vm.deleteComponent = deleteComponent;
+        vm.logout = logout;
+        vm.searchPhotos = searchPhotos;
+        vm.selectPhoto = selectPhoto;
         vm.infographic = {};
         function init() {
             InfographicService
@@ -182,24 +185,6 @@
             }
         }
 
-        /*function updateTextComponent() {
-            var newComponent = {
-                type: type,
-                font: font,
-                text: txt,
-                heading: heading,
-                top: top,
-                left: left
-            };
-            ComponentService
-                .updateComponent(vm.infographId, newComponent)
-                .success(function (component) {
-                    location.reload();
-                })
-                .error(function () {
-                    vm.error = "Could not create component";
-                });
-        }*/
 
         function  updateComponents() {
             var txt = "";
@@ -231,6 +216,18 @@
                         vm.error = "Unable to update component";
                     });
             }
+        }
+
+        function createImageComponent(_component) {
+            _component.type = "IMAGE";
+            ComponentService
+                .createComponent(vm.infographId, _component)
+                .success(function () {
+                    location.reload();
+                })
+                .error(function () {
+                    vm.error = "Unable to create component";
+                });
         }
 
         function createTextComponent() {
@@ -298,6 +295,54 @@
                 .error(function () {
                     vm.error = "Could not create component";
                 });
+        }
+
+        /* Flickr Services */
+        function searchPhotos(searchTerm) {
+            FlickrService
+                .searchPhotos(searchTerm)
+                .then(function(response) {
+                    data = response.data.replace("jsonFlickrApi(","");
+                    data = data.substring(0,data.length - 1);
+                    data = JSON.parse(data);
+                    vm.photos = data.photos;
+                });
+        }
+
+        function selectPhoto(photo, width, height) {
+            var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server;
+            url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
+            var component = {
+                type: "IMAGE",
+                url: url,
+                width: width,
+                height: height
+            };
+            ComponentService
+                .createComponent(vm.infographId, component)
+                .then(function (response) {
+                        location.reload();
+                }, function (err) {
+                    vm.error = "Creation error";
+                });
+            /*ComponentService
+                .findComponentById(vm.component._id)
+                .then(function (response) {
+                    var updatedComponent = response.data;
+                    updatedComponent.url = url;
+                    updatedComponent.width = width;
+                    ComponentService
+                        .updateComponent(vm.component._id, updatedComponent)
+                        .then(function (response) {
+                            if(response){
+                                location.reload();
+                            }
+                        }, function (err) {
+                            vm.error = "Update error!";
+                        });
+                }, function (err) {
+                    vm.error = "Component not found!";
+                });*/
         }
     }
 

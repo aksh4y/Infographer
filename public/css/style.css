@@ -228,6 +228,8 @@ li>a {
 .img-thumbnail {
     background-color: transparent;
     margin: 15px;
+    width: 100px;
+    height: 100px;
 }
 
 .thumbnail {
@@ -407,21 +409,13 @@ body {
 
 }
 
-#x-pos, #y-pos, #width, #height {
-    width: 70px;
-    height: 25px;
-    overflow: auto;
-    margin-left: 20px;
-    color: black;
-}
-
 #spy2 {
     margin-top: 20px;
 }
 
 #bg-img, #bg-img > img {
     margin-top: 5px;
-    margin-right: 8px;
+    margin-right: 3px;
 }
 
 #bg-img > img {
@@ -462,7 +456,7 @@ body {
     background: rgba(75,0,0,0.8);
     position: fixed;
     height: 100%;
-    /*overflow-y: auto;*/
+    overflow-y: auto;
     z-index: 1000;
     transition: all 0.4s ease 0s;
     color: white;

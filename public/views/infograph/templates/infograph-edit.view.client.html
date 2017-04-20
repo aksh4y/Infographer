@@ -68,8 +68,7 @@
                             <li class=""> <a onclick="toggleSidepanel('#bg')" data-scroll="" class="">
                                 <span class="fa fa-th solo">Background</span>
                             </a>
-
-                            </li><!--href="#/editor/{{model.infographId}}/addtxt"-->
+                            </li>
                             <li class=""> <a onclick="toggleSidepanel('#txt')" data-scroll="" data-target="#" class="">
                                 <span class="fa fa-text-width solo">Text</span>
                             </a>
@@ -98,7 +97,7 @@
                         <!-- Load all components -->
                         <div id="components" ng-repeat="component in model.components" style="position: relative">
                             <div class="row draggable widget" ng-attr-id="{{component._id}}"
-                            style="position: absolute; left: {{component.left}}; top: {{component.top}}">
+                                 style="position: absolute; left: {{component.left}}; top: {{component.top}}">
                                 <a ng-click="model.deleteComponent(component._id)">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </a>
@@ -115,14 +114,12 @@
                                     <div ng-switch-when="SHAPE">
                                         <ng-include src="'views/components/templates/shape-list.view.client.html'">
                                     </div>
+                                    <div ng-switch-when="IMAGE">
+                                        <ng-include src="'views/components/templates/image-list.view.client.html'">
+                                    </div>
                                 </div>
 
                                 <!--
-                                <div ng-switch-when="IMAGE">
-                                    <ng-include src="'views/widget/templates/widget-image.view.client.html'">
-                                </div>
-                                <div style="width:{{widget.width}}; height:{{widget.height}}">
-
                                 </div>
                                 <div ng-switch-when="LINE">
                                     <ng-include src="'views/widget/templates/widget-html.view.client.html'">
@@ -156,6 +153,9 @@
                         <div id="shapes" class="editor">
                             <ng-include src="'views/components/templates/editors/shape-edit.view.client.html'">
                         </div>
+                        <!--<div id="lines" class="editor">
+
+                        </div>-->
                     </nav>
                 </div>
             </div>
