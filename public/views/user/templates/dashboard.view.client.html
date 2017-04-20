@@ -29,13 +29,6 @@
 <div ng-if="model.infographics.length == 0">
     <h3 class="text-center">No infographics created</h3>
 </div>
-<div id="warning" class="col-xs-12 col-sm-12 hidden-md hidden-lg browserError text-center">
-    <h1 style="vertical-align: middle">Your browser is too small</h1>
-    <h3>Infographer works best on browsers that are at least 940px wide. You can however view and share your previously
-        created infographics.</h3>
-    <br/>
-    <button onclick="closeWarning()" class="btn-warning">Close</button>
-</div>
 
 <div class="container-fluid as-bottom-pad" style="margin-top:50px;">
     <div class="col-xs-2"></div>
@@ -55,6 +48,13 @@
     </div>
 </div>
 <div class="col-xs-2"></div>
+</div>
+<div id="warning" class="col-xs-12 col-sm-12 hidden-md hidden-lg browserError text-center">
+    <h1 style="vertical-align: middle">Your browser is too small</h1>
+    <h3>Infographer works best on browsers that are at least 940px wide. You can however view and share your previously
+        created infographics.</h3>
+    <br/>
+    <button onclick="closeWarning()" class="btn-warning">Close</button>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="row container-fluid">

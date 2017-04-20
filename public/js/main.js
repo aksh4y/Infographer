@@ -1,87 +1,83 @@
 /**
  * Created by Akshay on 4/14/2017.
  */
-var options = {
-    files: [
-        // You can specify up to 100 files.
-        {'url': 'http://sadarangani-akshay-webdev.herokuapp.com/uploads/b2dea34514ec5f1ba2c8d31fa1081779',
-            'filename': 'Infographic.jpg'}
-    ],
 
-    success: function () {
-        // Indicate to the user that the files have been saved.
-        alert("Success! Files saved to your Dropbox.");
-    },
-
-    progress: function (progress) {},
-
-    // Cancel is called if the user presses the Cancel button or closes the Saver.
-    cancel: function () {},
-
-    // Error is called in the event of an unexpected response from the AServer
-    // hosting the files, such as not being able to find a file. This callback is
-    // also called if there is an error on Dropbox or if the user is over quota.
-    error: function (errorMessage) {}
-};
-var button = Dropbox.createSaveButton(options);
-$(button).css('color', 'black');
-document.getElementById("dbSaver").appendChild(button);
-
-
-
-$('#account').on('click', function () {
-    var element = document.getElementById('account');
-    if(element.classList.contains('open'))
-        $('#account').removeClass('open'); // Closes the dropdown
-    else
-        $('#account').addClass('open'); // Opens the dropdown
-});
-
+/* $('#account').on('click', function () {
+ var element = document.getElementById('account');
+ if(element.classList.contains('open'))
+ $('#account').removeClass('open'); // Closes the dropdown
+ else
+ $('#account').addClass('open'); // Opens the dropdown
+ });*/
 
 function toggleSidepanel(ele) {
+    $("#sidebar-wrapper2").show();
+    $("#spy > ul > li").removeClass('active');
     $(this).addClass('active');
     $("#spy2 > div").hide();
     $(ele).show();
 }
 
-$(".widget").on('mousedown', function () {
-    console.log("should highlgh");
-    $("#canvas > div").removeClass('highlight');
+// Highlight widget
+$('#page-content-wrapper').on('mousedown', '.widget', function() {
+    $(".widget").removeClass('highlight');
     $(this).addClass('highlight');
+
 });
 
-function hideAll() {
-    //$('#sidebar-wrapper2').hide();
-    var element = document.getElementById('account');
-    if(element.classList.contains('open'))
-        $('#account').removeClass('open'); // Opens the dropdown
-}
-
+// Remove highlights
 function removeHighlights() {
-    $("#canvas > div").removeClass('highlight');
+    $("#canvas").find(".highlight").removeClass("highlight");
 }
 
-$( function() {
-    /*        $("#canvas > div").draggable();*/
-    $(".as-img").on('click', function() {
-        $(this).clone().appendTo('#canvas').draggable();
-    });
-} );
 
+/*$( function() {
+ $(".as-img").on('click', function() {
+ $(this)
+ .clone()
+ .addClass('widget')
+ .appendTo('#canvas')
+ .draggable();
+ });
+ });*/
+
+// Prevent enter key
 $('#canvas').on('keydown', function(e) {
+    //Prevent insertion of a return
+    if (e.which === 13 && e.shiftKey === false) {
+        alert("Try pressing Shift + Enter");
+        return false;
+    }
+    if (e.which === 46)
+    {}
+});
+
+// Prevent enter key
+$('#infoTitle').on('keydown', function(e) {
     //Prevent insertion of a return
     if (e.which == 13 && e.shiftKey == false) {
         return false;
     }
 });
 
+// Remove highlights when clicked outside of canvas
 $("body").on('click', function (evt) {
-    if(evt.target.id == "menu")
-        return;
-    hideAll();
+    var container = $("#canvas");
+    if (!container.is(evt.target) // if the target of the click isn't the container...
+        && container.has(evt.target).length === 0) { // ... nor a descendant of the container
+        removeHighlights();
+    }
 });
 
-$("#canvas > div").draggable();
+// Make all components draggable
+$("#canvas").on("mouseover", ".draggable", function() {
+    if(!$(this).is(":ui-draggable"))
+        $(this).draggable({
+            cursor: "move"
+        });
+});
+
+// Drag and edit operations
 $("#canvas")
     .on('click', '.row', function(){
         if ( $(this).is('.ui-draggable-dragging') ) {
@@ -94,18 +90,6 @@ $("#canvas")
         $(this).draggable( 'option', 'disabled', false);
         $(this).attr('contenteditable','false');
     });
-
-/*$( "#canvas > div" ).on('click', function() {
- $('#sidebar-wrapper2').show();
- });*/
-
-$('#canvas > div').on('drag', function() {
-    $('#x-pos').val($(this).offset().top);
-    $('#y-pos').val($(this).offset().left);
-    $('#width').val($(this).width());
-    $('#height').val($(this).height());
-    $('#element').val($(this).attr('id'));
-});
 
 
 $(function() {
