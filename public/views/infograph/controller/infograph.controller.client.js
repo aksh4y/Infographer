@@ -157,6 +157,7 @@
 
         /* Components */
 
+        // Delete component
         function deleteComponent(id) {
                 ComponentService
                     .deleteComponent(id)
@@ -167,6 +168,8 @@
                         vm.error = "Unable to delete component";
                     });
         }
+
+        // Save the current positions of the components
         function updateComponentsPositions() {
 
             for (var c in vm.components) {
@@ -185,7 +188,7 @@
             }
         }
 
-
+        // Update all components
         function  updateComponents() {
             var txt = "";
             var heading = "";

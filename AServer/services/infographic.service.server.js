@@ -4,43 +4,11 @@
 
 module.exports = function (app, infographicModel) {
 
-    var multer = require('multer'); // npm install multer --save
-    var upload = multer({ dest: __dirname+'/../../public/uploads' });
-    var fs = require('fs');
-
     app.put("/api/infographic/:inid", updateInfographic);
     app.delete("/api/infographic/:inid", deleteInfographic);
     app.get("/api/infographics/:userId", findAllInfographicsForUser);
     app.get("/api/infographic/:inid", findInfographicById);
     app.post("/api/creator/:userId", createInfographic);
-    app.post ("/api/upload", upload.single('myFile'), uploadImage);
-
-
-    function uploadImage(req, res) {
-        var infographicId      = req.body.inid;
-        var myFile        = req.file;
-
-        if(myFile) {
-            infographicModel
-                .findInfographicById(infographicId)
-                .then(function(infographic) {
-                    infographic.url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
-                   /* res.redirect("/assignment/#/user/" + uid + "/website/" + websiteId + "/page/"
-                        + imageWidget._page + "/widget");*/
-                    infographicModel
-                        .updateInfographic(infographicId, infographic)
-                        .then(function() {
-                            res.sendStatus(200);
-                        }, function() {
-                            res.sendStatus(404);
-                        });
-                }, function() {
-                    res.sendStatus(404);
-                });
-            return;
-        }
-        res.sendStatus(404);
-    }
 
 
     function findInfographicById(req, res) {

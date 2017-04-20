@@ -20,27 +20,36 @@ module.exports = function (app, componentModel) {
     
 
     function uploadImage(req, res) {
-
-        var uid           = req.body.uid;
-        var websiteId     = req.body.wid;
-        var componentId      = req.body.componentId;
+        var infographId   = req.body.inid;
         var width         = req.body.width;
+        var height        = req.body.height;
         var myFile        = req.file;
 
         if(myFile) {
-            var originalname = myFile.originalname; // file name on user's computer
-            var filename = myFile.filename;     // new file name in upload folder
-            var path = myFile.path;         // full path of uploaded file
-            var destination = myFile.destination;  // folder where file is saved to
-            var size = myFile.size;
-            var mimetype = myFile.mimetype;
+
+            var newComponent = {
+                _infograph: infographId,
+                type: "IMAGE",
+                width: width,
+                height: height,
+                url: req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename
+            };
+
             componentModel
-                .findComponentById(componentId)
+                .createComponent(infographId, newComponent)
+                .then(function (response) {
+                    res.redirect("/#/editor/" + infographId);
+                }, function (err) {
+                    res.sendStatus(404);
+                });
+
+
+               /* .findComponentById(componentId)
                 .then(function(imageComponent) {
                     imageComponent.width = width;
+                    imageComponent.height = height;
                     imageComponent.url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
-                    res.redirect("/AServer/#/user/" + uid + "/infographic/" + websiteId + "/infographic/"
-                        + imageComponent._infographic + "/component");
+                    res.redirect("/#/editor/" + imageComponent._infographic);
                     componentModel
                         .updateComponent(componentId, imageComponent)
                         .then(function() {
@@ -50,7 +59,7 @@ module.exports = function (app, componentModel) {
                         });
                 }, function() {
                     res.sendStatus(404);
-                });
+                });*/
             return;
         }
         res.sendStatus(404);
@@ -150,7 +159,6 @@ module.exports = function (app, componentModel) {
             .then(function (component) {
                 res.json(component);
             }, function (err) {
-                console.log(err);
                 res.sendStatus(404);
             });
     }

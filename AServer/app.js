@@ -9,8 +9,6 @@ module.exports = function (app) {
     <!-- Services -->
     require('./services/user.service.server.js')(app, models.userModel);
     require('./services/infographic.service.server.js')(app, models.infographicModel);
-    require('./services/page.service.server.js')(app, models.pageModel);
-    require('./services/widget.service.server.js')(app, models.widgetModel);
     require('./services/component.service.server')(app, models.componentModel);
    // require('./services/flickr.service.AServer.js')(app);
 };
