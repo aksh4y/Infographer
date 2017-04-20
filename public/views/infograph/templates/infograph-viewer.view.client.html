@@ -61,28 +61,30 @@
                 <div id="page-content-wrapper">
                     <div id="canvas" class="page-content inset">
                         <!-- Load all components -->
-                        <div id="components" ng-repeat="component in model.components" style="position: relative">
-                            <div class="row" ng-attr-id="{{component._id}}"
-                                 style="position: absolute; left: {{component.left}}; top: {{component.top}}">
-                                <a>
-                                    <span class="glyphicon" style="visibility: hidden"></span>
-                                </a>
-                                <div ng-switch="component.type">
-                                    <div ng-switch-when="TEXT">
-                                        <ng-include src="'views/components/templates/text-list.view.client.html'">
-                                    </div>
-                                    <div ng-switch-when="JUMBO">
-                                        <ng-include src="'views/components/templates/text-list.view.client.html'">
-                                    </div>
-                                    <div ng-switch-when="ANCHOR">
-                                        <ng-include src="'views/components/templates/text-list.view.client.html'">
-                                    </div>
-                                    <div ng-switch-when="SHAPE">
-                                        <ng-include src="'views/components/templates/shape-list.view.client.html'">
+
+                            <div id="components" ng-repeat="component in model.components" style="position: relative">
+                                <div class="row" ng-attr-id="{{component._id}}"
+                                     style="position: absolute; left: {{component.left}}; top: {{component.top}}">
+                                    <a>
+                                        <span class="glyphicon" style="visibility: hidden"></span>
+                                    </a>
+                                    <div ng-switch="component.type">
+                                        <div ng-switch-when="TEXT">
+                                            <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                        </div>
+                                        <div ng-switch-when="JUMBO">
+                                            <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                        </div>
+                                        <div ng-switch-when="ANCHOR">
+                                            <ng-include src="'views/components/templates/text-list.view.client.html'">
+                                        </div>
+                                        <div ng-switch-when="SHAPE">
+                                            <ng-include src="'views/components/templates/shape-list.view.client.html'">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
                     </div>
                     <div class="col-md-2"></div>
                 </div>
