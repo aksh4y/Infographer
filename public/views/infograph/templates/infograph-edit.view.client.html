@@ -24,8 +24,7 @@
 
     // Remove highlights
     function removeHighlights() {
-        $("#canvas > div").removeClass('highlight');
-        $("#canvas > svg").removeClass('highlight');
+        $("#canvas").find(".highlight").removeClass("highlight");
     }
 
 
@@ -60,9 +59,6 @@
 
     // Remove highlights when clicked outside of canvas
     $("body").on('click', function (evt) {
-        /*if(evt.target.id == "menu")
-         return;
-         hideAll();*/
         var container = $("#canvas");
         if (!container.is(evt.target) // if the target of the click isn't the container...
             && container.has(evt.target).length === 0) { // ... nor a descendant of the container
@@ -70,25 +66,15 @@
         }
     });
 
-
-    $("#canvas").on("drag", ".draggable", function() {
-        trackPosition(this);
-    });
-
-    $("#canvas").on("mousedown", ".draggable", function() {
-
-        // Use the UI pseudo-selector to check that
-        // it is not already draggable
+    // Make all components draggable
+    $("#canvas").on("mouseover", ".draggable", function() {
         if(!$(this).is(":ui-draggable"))
             $(this).draggable({
-                cursor: "move",
-                drag: function(event,ui){
-                    dragposition = ui.position;
-                    //console.log(dragposition);
-                }
+                cursor: "move"
             });
     });
 
+    // Drag and edit operations
     $("#canvas")
         .on('click', '.row', function(){
             if ( $(this).is('.ui-draggable-dragging') ) {
@@ -101,25 +87,6 @@
             $(this).draggable( 'option', 'disabled', false);
             $(this).attr('contenteditable','false');
         });
-
-    /*$( "#canvas > div" ).on('click', function() {
-     $('#sidebar-wrapper2').show();
-     });*/
-
-    function trackPosition(ele) {
-        var x = $(ele).offset().left;
-        var y = $(ele).offset().top;
-        var e = $(ele).children('div').attr('id');
-        //console.log(x+","+y);
-    }
-
-    $('#canvas > div').on('drag', function() {
-        $('#x-pos').val($(this).offset().top);
-        $('#y-pos').val($(this).offset().left);
-        $('#width').val($(this).width());
-        $('#height').val($(this).height());
-        $('#element').val($(this).attr('id'));
-    });
 
 
     $(function() {
@@ -227,13 +194,13 @@
 
                         <!-- Load all components -->
                         <div id="components" ng-repeat="component in model.components" style="position: relative">
-                            <div class="row draggable" ng-attr-id="{{component._id}}"
+                            <div class="row draggable widget" ng-attr-id="{{component._id}}"
                             style="position: absolute; left: {{component.left}}; top: {{component.top}}">
                                 <a ng-click="model.deleteComponent(component._id)">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </a>
                                 <div ng-switch="component.type">
-                                    <div ng-switch-when="TEXT">
+                                    <div class="txtDiv" ng-switch-when="TEXT">
                                         <ng-include src="'views/components/templates/text-list.view.client.html'">
                                     </div>
                                     <div ng-switch-when="JUMBO">
