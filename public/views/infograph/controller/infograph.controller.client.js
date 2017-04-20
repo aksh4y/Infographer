@@ -99,8 +99,6 @@
                 .error(function () {
                     vm.error("An error has occurred!");
                 });
-
-
         }
         init();
 
@@ -146,8 +144,6 @@
                 .success(function(i) {
                     updateComponents();
                     updateComponentsPositions();
-
-
                     vm.message = "Successfully saved!";
                 })
                 .error(function () {

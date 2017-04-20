@@ -58,16 +58,16 @@ module.exports = function (app, infographicModel) {
 
 
 
-   function updateInfographic(req, res) {
-       var infographicId = req.params['inid'];
-       infographicModel
+    function updateInfographic(req, res) {
+        var infographicId = req.params['inid'];
+        infographicModel
             .findInfographicById(infographicId)
             .then(function (response) {
                 var newInfographic = req.body;
                 infographicModel
                     .updateInfographic(infographicId, newInfographic)
                     .then(function (response) {
-                            res.json(response);
+                        res.json(response);
                     }, function () {
                         res.sendStatus(500);
                     });

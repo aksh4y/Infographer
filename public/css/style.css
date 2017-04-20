@@ -509,8 +509,6 @@ if it's not present, don't show loader */
     overflow: hidden;
 }
 
-
-
 .sidebar-nav {
     position: absolute;
     top: 0;

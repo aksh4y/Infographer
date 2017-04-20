@@ -1,6 +1,18 @@
 <script src="../../../js/dropbox.js"></script>
 <script src="../../../js/print.js"></script>
 <script src="../../../js/facebook.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+    var html = $('#page-content-wrapper').html();
+    var download = new Blob([html], {
+        "type": "text/html"
+    });
+
+    var downloadUrl = window.URL.createObjectURL(download);
+
+    $('.g-savetodrive').attr('data-src', downloadUrl);
+
+</script>
 
 <ul class='custom-menu'>
     <li data-action = "delete">Delete</li>
@@ -36,13 +48,20 @@
             </div>
             <div class="navbar-text">
                 <a class="navbar-link">
-                    <span id="dbSaver"></span>
+                    <span id="dbSaver" disabled="true"></span>
                 </a>
+            </div>
+            <div class="navbar-text">
+            <div class="g-savetodrive"
+                 data-src=""
+                 data-filename="My Statement.pdf"
+                 data-sitename="My Company Name">
+            </div>
             </div>
             <div class="navbar-brand fb-share-button"
                  data-href={{model.infographic.url}}
                  data-layout="button"
-                 data-size="small">
+                 data-size="large">
             </div>
 
         </div>

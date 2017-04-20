@@ -30,5 +30,9 @@ var options = {
     error: function (errorMessage) {}
 };
 var button = Dropbox.createSaveButton(options);
-$(button).css('color', 'black');
+$(button).attr('disabled', 'true');
+$(button).on('click', function (e) {
+    window.alert("Dropbox API is currently under maintenance.\nThis feature might be removed permanently");
+});
+$(button).css('cursor', 'not-allowed');
 document.getElementById("dbSaver").appendChild(button);
