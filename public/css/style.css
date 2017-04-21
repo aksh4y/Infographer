@@ -14,21 +14,21 @@
 	background-size: cover;
 }*/
 
- .as-heading {
-	 text-align: center;
- }
+.as-heading {
+    text-align: center;
+}
 
- th {
-     color: white;
- }
+th {
+    color: white;
+}
 
- tr {
-     color: #FF1493;
- }
+tr {
+    color: #FF1493;
+}
 
- a {
-     color: #FF1493;
- }
+a {
+    color: #FF1493;
+}
 
 ul {
     padding-top: 20px;
@@ -50,13 +50,13 @@ ul {
 }
 
 .navbar {
-	background-color: transparent;
-	background: transparent;
-	border-color: transparent;
+    background-color: transparent;
+    background: transparent;
+    border-color: transparent;
 }
 
-.navbar li { 
-	color: #000
+.navbar li {
+    color: #000
 }
 
 .list-group-item {
@@ -90,11 +90,10 @@ input.form-control {
     margin-bottom: 5px;
 }
 
-@media screen and (min-width: 940px)  {
-    #page-content-wrapper {
-        height:297mm;
-        width:210mm;
-    }
+
+#page-content-wrapper {
+    height:297mm;
+    width:210mm;
 }
 
 h1, h2, h3, h4, h5, h6 {

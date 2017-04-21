@@ -56,21 +56,6 @@
             .when("/test", {
                 templateUrl: 'views/components/templates/editors/test-editor.html'
             })
-            /*.when("/user/:uid/infograph/:inid/widget",{
-             templateUrl: 'views/widget/templates/widget-list.view.client.html',
-             controller: "WidgetListController",
-             controllerAs: "model"
-             })
-            .when("/user/:uid/infograph/:inid/widget/new", {
-                templateUrl: 'views/widget/templates/widget-chooser.view.client.html',
-                controller: "WidgetNewController",
-                controllerAs: "model"
-            })
-            .when("/user/:uid/infograph/:inid/widget/:wgid", {
-                templateUrl: 'views/widget/templates/widget-edit.view.client.html'
-                , controller: "WidgetEditController",
-                controllerAs: "model"
-            })*/
             .when("/viewer/:inid", {
                 templateUrl: 'views/infograph/templates/infograph-viewer.view.client.html',
                 controller: "InfographViewController",
