@@ -5,10 +5,10 @@ A web app that allows users to create and share Infographics.
 [Infographer](https://infographer.herokuapp.com).
 ## Screenshots
 ![img](Images/Welcome.PNG)
-![img](Images/Sign up
+![img](Images/Sign%20up.PNG)
 ![img](Images/Profile.PNG)
 ![img](Images/Dashboard.PNG)
-![img](Images/Admin dashboard.PNG)
+![img](Images/Admin%20dashboard.PNG)
 ![img](Images/Editor.PNG)
 ![img](Images/Viewer.PNG)
 ### Check out the [demo video](https://youtu.be/2RYWygWJxso)
