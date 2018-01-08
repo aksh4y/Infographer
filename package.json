@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Infographer: Present data better",
   "main": "server.js",
+  "private" : "true",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.1",
