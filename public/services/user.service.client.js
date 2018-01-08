@@ -15,7 +15,8 @@
             "findUserById": findUserById,
             "findUserByUsername": findUserByUsername,
             "updateUser": updateUser,
-            "deleteUser": deleteUser
+            "deleteUser": deleteUser,
+            "recover": recover
         };
         return api;
 
@@ -26,6 +27,13 @@
                 .then(function (response) {
                     return response.data;
                 });
+        }
+
+        function recover(user) {
+            return $http.post('/api/recover', user)
+                .then(function (response) {
+                    return response.data;
+                })
         }
 
         function findAllUsers() {

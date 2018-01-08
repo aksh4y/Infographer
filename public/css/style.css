@@ -90,6 +90,10 @@ input.form-control {
     margin-bottom: 5px;
 }
 
+.as-disabled {
+    background: black;
+}
+
 
 #page-content-wrapper {
     height:297mm;

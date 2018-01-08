@@ -10,6 +10,7 @@ module.exports = function () {
         firstName: String,
         lastName: String,
         email: String,
+        phone: String,
         google: {
             id: String,
             token: String

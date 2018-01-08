@@ -1,3 +1,26 @@
+<script>
+    $(document).ready(function($) {
+        if(!$('input#phone').val()) {
+            $('input#phone').css({ 'border':'3px solid red'});
+            $('#update').addClass('disabled').addClass('as-disabled');
+            $('#dashboard').addClass('disabled').addClass('as-disabled');
+        }
+        $('input#phone').bind('input propertychange', function() {
+            if ($(this).val()) {
+                $(this).css({ 'border':'3px solid green'});
+                $('#dashboard').removeClass('disabled').removeClass('as-disabled');
+                $('#update').removeClass('disabled').removeClass('as-disabled');
+            } else
+            {
+                $(this).css({ 'border':'3px solid red'});
+                $('#update').addClass('disabled').addClass('as-disabled');
+                $('#dashboard').addClass('disabled').addClass('as-disabled');
+            }
+        });
+    });
+</script>
+
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="row container-fluid">
         <div class="col-xs-12">
@@ -31,11 +54,15 @@
                 <label for="email">Email Address</label>
                 <input ng-model="model.user.email" type="email" class="form-control" id="email" placeholder="Email">
             </div>
+            <div class="form-group">
+                <label for="phone">Phone Number With Area Code</label>
+                <input ng-model="model.user.phone" type="text" class="form-control" id="phone" placeholder="+12345678900">
+            </div>
         </form>
 
-        <a class="btn btn-primary btn-block"
+        <a class="btn btn-primary btn-block" id="update"
            ng-click="model.update(model.user)">Update</a>
-        <a ng-if="model.user.role == 'USER'" class="btn btn-info btn-block"
+        <a ng-if="model.user.role == 'USER'" class="btn btn-info btn-block" id="dashboard"
            href="#/dashboard">Dashboard</a>
 
         <a ng-if="model.user.role == 'ADMIN'" class="btn btn-info btn-block"

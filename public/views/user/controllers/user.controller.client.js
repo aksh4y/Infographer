@@ -24,9 +24,12 @@
                 .login(user)
                 .then(function (user) {
                     if(user) {
-                        $location.url('/profile')
+                        if(user === "bad pwd")
+                            vm.error = 'Please enter correct username and password'
+                        else
+                            $location.url('/profile')
                     } else {
-                        vm.error = 'Please enter correct usernamd and password'
+                        vm.error = 'Please enter correct username and password'
                     }
                 });
         }
@@ -74,6 +77,26 @@
 
     function RegisterController($location, UserService) {
         var vm = this;
+
+        vm.recover = function recover(user) {
+            if (user == null          ||
+                user.username == null ||
+                user.phone == null    ||
+                user.username == ""   ||
+                user.phone == ""){
+                vm.error = "Please enter your username and phone number";
+            }
+            else {
+                UserService.recover(user)
+                    .then(function (u) {
+                        vm.success = "OTP Sent!";
+                    }, function (err) {
+                        vm.error = "Incorrect username and/or mobile number. Contact administrator.";
+                    });
+            }
+
+        };
+
         vm.register = function register(user) {
             if (user == null          ||
                 user.username == null ||
@@ -81,11 +104,13 @@
                 user.username == ""   ||
                 user.password == ""   ||
                 user.email == null    ||
-                user.email == ""){
+                user.email == ""      ||
+                user.phone == null    ||
+                user.phone == ""){
                 vm.error = "Please enter all your details!";
                 return;
             }
-            if (user.password != user.verifypassword) {
+            if (user.password !== user.verifypassword) {
                 vm.error = "Password mismatch";
                 return;
             }
@@ -100,13 +125,14 @@
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                email: user.email
+                email: user.email,
+                phone: user.phone
             };
             UserService.register(newUser)
                 .then(function(user) {
                     $location.url("/profile");
                 }, function(err) {
-                    vm.error = "Could not register";
+                    vm.error = "Username taken.";
                 });
         }
     }

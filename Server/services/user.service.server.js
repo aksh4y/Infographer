@@ -4,6 +4,7 @@
 module.exports = function (app, userModel) {
 
     require('../../express');
+    var twilio = require('twilio');
 
     var passport = require('passport');
     var bcrypt = require("bcrypt-nodejs");
@@ -12,6 +13,7 @@ module.exports = function (app, userModel) {
     passport.deserializeUser(deserializeUser);
 
     var auth = authorized;
+    var client = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
     var LocalStrategy = require('passport-local').Strategy;
     var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -31,6 +33,7 @@ module.exports = function (app, userModel) {
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/logout', logout);
     app.get('/api/loggedIn', loggedIn);
+    app.post('/api/recover', recover);
     app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
     app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
     app.get('/google/oauth/callback',
@@ -38,12 +41,46 @@ module.exports = function (app, userModel) {
             successRedirect: '/index.html#/profile',
             failureRedirect: '/index.html#/login'
         }));
-    /*app.get('/aauth/facebook/callback',
-        passport.authenticate('facebook', {
-            successRedirect: '/index.html#/profile',
-            failureRedirect: '/index.html#/login'
 
-    }));*/
+    function recover (req, res) {
+        if(req.body) {
+            var user = req.body;
+            userModel.findUserByUsername(user.username)
+                .then(function (response) {
+                    var newUser = response;
+                    if (!newUser.facebook.id && !newUser.google.id && newUser.phone == user.phone) {
+                        var pass = randomString(12, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                        newUser.password = bcrypt.hashSync(pass);
+                        userModel
+                            .updateUser(newUser._id, newUser)
+                            .then(function (res) {
+                                client.messages.create({
+                                    body: 'OTP for Infographer is: ' + pass,
+                                    to: newUser.phone,  // Text this number
+                                    from: process.env.TWILIO_NUMBER // From a valid Twilio number
+                                }).then(function (message) {
+                                    res.sendStatus(200).send(message);
+                                }, function (err) {
+                                    res.sendStatus(500).send(err);
+                                });
+                            }, function () {
+                                res.sendStatus(500);
+                            });
+                    }
+                    else res.sendStatus(404);
+                }, function () {
+                    res.sendStatus(404);
+                });
+        }
+
+    }
+
+    function randomString(length, chars) {
+        var result = '';
+        for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+        return result;
+    }
+
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { failureRedirect: '#/login' }),
         function(req, res) {
@@ -54,8 +91,8 @@ module.exports = function (app, userModel) {
 
 
     passport.use(new FacebookStrategy({
-            clientID: "1670289183274069",
-            clientSecret: "44a4decdb780b64a950996620e0c17b7",
+            clientID: process.env.FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
             callbackURL: "/auth/facebook/callback",
             profileFields: ['id', 'displayName', 'email'],
             enableProof: true
@@ -97,15 +134,9 @@ module.exports = function (app, userModel) {
             );
         }
 
-    /*var googleConfig = {
-     clientID     : process.env.GOOGLE_CLIENT_ID,
-     clientSecret : process.env.GOOGLE_CLIENT_SECRET,
-     callbackURL  : process.env.GOOGLE_CALLBACK_URL
-     };*/
-
     var googleConfig = {
-        clientID     : "444599312528-aukb1g3el1pi7inh63l8kf8cvh7i8amj.apps.googleusercontent.com",
-        clientSecret : "5Dg9wFKRtTkd-njtphTy3QyB",
+        clientID     : process.env.GOOGLE_CLIENT_ID,
+        clientSecret : process.env.GOOGLE_CLIENT_SECRET,
         callbackURL  : "/google/oauth/callback"
     };
 
@@ -152,17 +183,6 @@ module.exports = function (app, userModel) {
     passport.use(new LocalStrategy(localStrategy));
 
     function localStrategy(username, password, done) {
-        /*userModel
-            .findUserByCredentials({username: username, password: bcrypt.compareSync(password, bcrypt.hash(password))})
-            .then(
-                function(user) {
-                    if (!user) { return done(null, false); }
-                    return done(null, user);
-                },
-                function(err) {
-                    if (err) { return done(err); }
-                }
-            );*/
         userModel
             .findUserByUsername(username)
             .then(
@@ -171,7 +191,7 @@ module.exports = function (app, userModel) {
                     if(user && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
                     } else {
-                        return done(null, false);
+                        return done(null, "bad pwd");
                     }
                 });
     }
@@ -195,7 +215,7 @@ module.exports = function (app, userModel) {
             .then(
                 function(user){
                     if(user) {
-                        res.json(null);
+                        res.status(500).send(user);
                     } else {
                         return userModel.createUser(newUser);
                     }

@@ -29,6 +29,11 @@
                 controller: 'RegisterController',
                 controllerAs: 'model'
             })
+            .when("/recover", {
+                templateUrl: 'views/user/templates/forgot-password.view.client.html',
+                controller: 'RegisterController',
+                controllerAs: 'model'
+            })
             .when('/profile', {
                 templateUrl: 'views/user/templates/profile.view.client.html',
                 controller: 'ProfileController',

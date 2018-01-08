@@ -1,17 +1,18 @@
 <script>
-    jQuery(document).ready(function($) {
-        //  var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-        <!-- another regex filter you can use -->
+    $(document).ready(function($) {
+        if(!$('input#reg-email').val()) {
+            $('input#reg-email').css({ 'border':'3px solid red'});
+            $('#register').addClass('disabled').addClass('as-disabled');
+        }
         var testEmail =    /^[ ]*([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})[ ]*$/i;
-        jQuery('input#reg-email').bind('input propertychange', function() {
-            if (testEmail.test(jQuery(this).val()))
-            {
+        $('input#reg-email').bind('input propertychange', function() {
+            if (testEmail.test(jQuery(this).val())) {
                 jQuery(this).css({ 'border':'3px solid green'});
-                jQuery('button#register').prop("disabled",false);
+                jQuery('#register').removeClass('disabled').removeClass('as-disabled');
             } else
             {
                 jQuery(this).css({ 'border':'3px solid red'});
-                jQuery('button#register').prop("disabled",true);
+                jQuery('#register').addClass('disabled').addClass('as-disabled');
             }
         });
     });
@@ -47,6 +48,12 @@
            type="email"
            class="form-control"
            placeholder="Email"/>
+    <label for="reg-phone">Phone Number</label>
+    <input ng-model="user.phone"
+           id="reg-phone"
+           type="text"
+           class="form-control"
+           placeholder="Phone Number"/>
     <label for="reg-password">Password</label>
     <input ng-model="user.password"
            id="reg-password"
